@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	>
+	<head>
+		<link type = "text/css" rel = "stylesheet" media = "screen,projection" href = "/webjars/materializecss/0.97.7/css/materialize.css" />
+		
+		<meta charset="UTF-8" />
+		<title>Perfil - EmprestaAi</title>
+	</head>
+	<body>
+		<div class = "container">			
+			<div class = "row valign-wrapper">
+				<div class = "col s4">
+					<h4 class = "header green-text" th:text = "${usuario.nome + ', ' + usuario.idade}"></h4>
+					<h5 class = "header" th:text = "${usuario.email}"></h5>
+				</div>
+				<div class = "col s8">
+					<a href = "/usuario/cadastrarUsuario/" class = "btn-large waves-effect waves-light teal right">Lista de Usu&aacute;rios</a>
+				</div>				
+			</div>		
+			<hr />	
+			<div class = "row">				
+				<form th:action = "@{${'/objeto/cadastrarObjeto/'+usuario.id}}" method = "POST">
+					<div class = "row center">
+						<h5>Cadastrar objetos</h5>
+					</div>
+					<div th:if="${erro}" class = "row valign-wrapper">
+						<div class = "chip transparent red-text">
+							<span>Erro: </span>
+						</div>								
+						<div class = "chip red white-text right">
+							<span th:text="${erro}"></span>
+						</div>
+					</div>
+					<div class = "row valign-wrapper">
+						<div class = "row left col s9">
+							<div class = "row input-field">						
+								<input id = "nomeObjeto" name = "nomeObjeto" type = "text" class = "validate" required="required" />
+								<label for = "nomeObjeto">Nome do objeto</label>						
+							</div>
+							<div class = "row input-field">
+								<textarea id = "descricaoObjeto" name = "descricaoObjeto" class = "materialize-textarea"></textarea>
+								<label for = "descricaoObjeto">Descri&ccedil;&atilde;o</label>
+							</div>						
+						</div>				
+						<div class = "row col s3 right">
+							<button class = "btn-large waves-effect waves-light teal" type = "submit" name = "action" >
+								Cadastrar objeto
+							</button>							
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>						
+						</div>
+					</div>													
+				</form>
+			</div>
+			
+			<div class = "row">
+				<table class = "striped">
+					<thead>
+						<tr>
+							<td>Nome</td>
+							<td>Descri&ccedil;&atilde;o</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${usuario.objetos}" th:each="objeto : ${usuario.objetos}">
+							<td th:text="${objeto.nome}"> </td>
+							<td th:if="${#strings.isEmpty(objeto.descricao)} == false" th:text="${objeto.descricao}"></td>
+							<td th:unless="${#strings.isEmpty(objeto.descricao)} == false">(Sem descri&ccedil;&atilde;o)</td>
+						</tr>
+						<tr th:unless="${usuario.objetos}">
+							<td colspan="2">Nenhum objeto cadastrado.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+				
+		<script src="/webjars/jquery/2.2.4/jquery.js"></script>
+		<script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>
+	</body>
+</html> 

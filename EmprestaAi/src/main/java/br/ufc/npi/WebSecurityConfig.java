@@ -15,7 +15,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/", "/usuario/", "/usuario/cadastrar/").permitAll()
+				.antMatchers("/").permitAll()
+				.antMatchers("/usuario/cadastrarUsuario/", "/usuario/salvarUsuario/**", "/usuario/perfil/**").permitAll()
+				.antMatchers("/objeto/cadastrarObjeto/**").permitAll()
+				.antMatchers("/webjars/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 			.logout()

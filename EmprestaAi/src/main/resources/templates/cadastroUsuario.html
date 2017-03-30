@@ -9,17 +9,69 @@
 			href = "/webjars/materializecss/0.97.7/css/materialize.css" />
 		
 		<meta charset="UTF-8" />
-		<title>Insert title here</title>
+		<title>Cadastro - EmprestaAi</title>
 	</head>
 	<body>
 		<div class = "container">
-			<div class = "row center">
-				<div class = "col s6">
-					<h3>Cadastro de usu&aacute;rios</h3>
-				</div>
+			<div class = "row">				
+				<h3 class = "header center">Cadastro de usu&aacute;rios</h3>				
 			</div>
-		</div>		
+			<div class = "row">
+				<form id = "formCadastroUsuario" action = "/usuario/salvarUsuario/" method="POST" >
+					<div class = "row">
+						<div class = "input-field col s5">					
+							<input id = "nomeUsuario" name = "nomeUsuario" type = "text" class = "validate" required="required" />
+							<label for = "nomeUsuario">Nome de usu&aacute;rio</label>											 		
+						</div>
+						<div class = "input-field col s5">
+							<input id = "emailUsuario" name = "emailUsuario" type = "email" class = "validate" required="required" />
+							<label for = "emailUsuario">Endere&ccedil;o de Email</label>					
+						</div>
+						<div class = "input-field col s2">
+							<input id = "idadeUsuario" name = "idadeUsuario" type = "number" min = "0" class = "validate" required = "required"/>
+							<label for = "idadeUsuario">Idade</label>
+						</div>	
+					</div>
+					<div class = "row">						
+						<div class = "input-field col s6">
+							<input id = "senhaUsuario" name = "senhaUsuario" type = "password" class = "validate" required = "required" />
+							<label for = "senhaUsuario">Senha</label>
+						</div>
+						<div class = "input-field col s6">
+							<input id = "confirmacaoSenhaUsuario" name = "confirmacaoSenhaUsuario" type = "password" class = "validate" required = "required" />
+							<label for = "confirmacaoSenhaUsuario">Confirma&ccedil;&atilde;o de senha</label>
+						</div>
+					</div>
+					<div class = "row center">
+						<button class = "btn-large waves-effect waves-light teal" type = "submit" name = "action">
+							Cadastrar usu&aacute;rio
+						</button>
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>						
+					</div>			
+				</form>				
+			</div>
+			
+			<div class = "row">
+				<table class = "striped">
+					<thead>
+						<tr>
+							<td>Nome</td>
+							<td>Email</td>
+							<td>Idade</td>											
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${usuarios}" th:each="usuario : ${usuarios}">
+							<td th:text="${usuario.nome}"></td>
+							<td th:text="${usuario.email}"></td>
+							<td th:text="${usuario.idade}"></td>
+							<td><a th:href = "@{${'/usuario/perfil/'+usuario.id}}" class = "btn-flat waves-effect waves-teal" >Ver perfil</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 		<script src="/webjars/jquery/2.2.4/jquery.js"></script>
-		<script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>
+		<script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>		
 	</body>
 </html> 

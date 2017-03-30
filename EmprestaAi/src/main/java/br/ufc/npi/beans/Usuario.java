@@ -22,6 +22,8 @@ public class Usuario {
 	private String nome;	
 	private Integer idade;
 	
+	private String senha;
+	
 	@OneToMany
 	private List<Objeto> objetos;
 	
@@ -48,11 +50,18 @@ public class Usuario {
 	}
 	public void setIdade(Integer idade) {
 		this.idade = idade;
+	}	
+	public String getSenha() {
+		return senha;
+	}
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	public List<Objeto> getObjetos() {
 		return objetos;
 	}
 	public void setObjetos(List<Objeto> objetos) {
 		this.objetos = objetos;
-	}	
+	}
+	
 }

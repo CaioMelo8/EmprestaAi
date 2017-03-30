@@ -14,6 +14,10 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepositorio usuarioRepo;
 	
+	public void salvarUsuario(Usuario usuario){		
+		usuarioRepo.save(usuario);
+	}
+	
 	public Usuario buscarUsuario(Integer id){
 		return usuarioRepo.findOne(id);
 	}
