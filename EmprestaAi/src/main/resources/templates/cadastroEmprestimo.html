@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	>
+	<head>
+		<link type = "text/css" rel = "stylesheet" media = "screen,projection"
+			href = "/webjars/materializecss/0.97.7/css/materialize.css" />
+		
+		<meta charset="UTF-8" />
+		<title>Cadastro de Empr&eacute;stimo - EmprestaAi</title>
+	</head>
+	<body>
+		<div class = "container">
+			<div class = "row valign-wrapper">
+				<div class = "col s12">
+					<h4 th:text="${usuario.nome + ',' + usuario.idade}" class = "header green-text"></h4>
+					<h5 class = "header" th:text="${usuario.email}"></h5>
+				</div>	
+			</div>
+			<hr />
+			<div class = "row">
+				<form th:action = "@{${'/emprestimo/cadastrarEmprestimo/'+usuario.id}}" method = "POST">
+					<div class = "row center">
+						<h4 class = "header">Cadastrar empr&eacute;stimo</h4>
+					</div>
+					<div class = "row">
+						<div class = "row">											
+							<div class = "col s6">
+								<label for = "objeto" class = "active">Objeto a ser emprestado</label>
+								<select id = "idObjeto" name = "idObjeto" class = "browser-default" required="required" >
+									<option value = "" disabled="disabled" selected="selected">Escolha um objeto</option>
+									<option th:each="objeto : ${usuario.objetos}" th:value = "${objeto.id}" th:text = "${objeto.nome}" ></option>															
+								</select>
+							</div>
+							<div class = "col s6">
+								<label for = "idUsuarioEmprestante" class = "active">Amigo a quem emprestar</label>
+								<select id = "idUsuarioEmprestante" name = "idUsuarioEmprestante" class = "browser-default" required="required">
+									<option value = "" disabled="disabled" selected="selected">Escolha um amigo</option>
+									<option th:each="emprestante : ${emprestantes}" th:value = "${emprestante.id}" th:text = "${emprestante.nome}"></option>
+								</select>								
+							</div>							
+						</div>
+						<div class = "row">
+							<div class = "input-field col s6">
+								<input id = "dataEmprestimo" name = "dataEmprestimo" class = "datepicker" type = "date" required="required" />
+								<label for = "dataEmprestimo" class = "active">Data de Empr&eacute;stimo</label>
+							</div>
+							<div class = "input-field col s6">
+								<input id = "dataEntrega" name = "dataEntrega" class = "datepicker" type = "date" required="required" />
+								<label for = "dataEntrega" class = "active">Data de Entrega</label>
+							</div>
+						</div>
+						<div class = "row">
+							<div class = "col s12 center">
+								<button class = "btn-large waves-effect waves-light teal" type = "submit" name = "action">
+									Cadastrar Empr&eacute;stimo
+								</button>
+								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+							</div>							
+						</div>		
+					</div>
+				</form>
+			</div>
+			<div class = "row">
+				<div class = "row center">
+					<h5 class = "header">Empr&eacute;stimos</h5>
+				</div>
+				<table class = "striped">
+					<thead>
+						<tr>
+							<td>Nome do Amigo</td>
+							<td>Email</td>
+							<td>Idade</td>
+							<td>Data de Emp&eacute;stimo</td>
+							<td>Data de Entrega</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${emprestimos}" th:each="emprestimo : ${emprestimos}">
+							<td th:text = "${emprestimo.emprestante.nome}"></td>
+							<td th:text = "${emprestimo.emprestante.email}"></td>
+							<td th:text = "${emprestimo.emprestante.idade}"></td>
+							<td th:text = "${#dates.format(emprestimo.dataEmprestimo, 'dd/MMM/yyyy')}"></td>
+							<td th:text = "${#dates.format(emprestimo.dataEntrega, 'dd/MMM/yyyy')}"></td>							
+						</tr>
+						<tr th:unless="${emprestimos}">
+							<td colspan = "5">Nenhum empr&eacute;stimo realizado.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<script src="/webjars/jquery/2.2.4/jquery.js"></script>
+		<script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>
+	</body>
+</html> 

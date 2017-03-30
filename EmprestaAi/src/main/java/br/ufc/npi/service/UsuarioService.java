@@ -22,10 +22,6 @@ public class UsuarioService {
 		return usuarioRepo.findOne(id);
 	}
 	
-	public Usuario buscarUsuarioPorNome(String nome){
-		return usuarioRepo.findByNome(nome);
-	}
-	
 	public List<Usuario> buscarTodosUsuarios(){
 		return usuarioRepo.findAll();
 	}

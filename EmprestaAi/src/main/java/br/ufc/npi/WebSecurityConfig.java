@@ -18,6 +18,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.antMatchers("/").permitAll()
 				.antMatchers("/usuario/cadastrarUsuario/", "/usuario/salvarUsuario/**", "/usuario/perfil/**").permitAll()
 				.antMatchers("/objeto/cadastrarObjeto/**").permitAll()
+				.antMatchers("/emprestimo/**").permitAll()
 				.antMatchers("/webjars/**").permitAll()
 				.anyRequest().authenticated()
 				.and()

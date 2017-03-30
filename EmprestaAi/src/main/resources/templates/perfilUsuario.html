@@ -13,13 +13,16 @@
 	<body>
 		<div class = "container">			
 			<div class = "row valign-wrapper">
-				<div class = "col s4">
+				<div class = "col s6">
 					<h4 class = "header green-text" th:text = "${usuario.nome + ', ' + usuario.idade}"></h4>
 					<h5 class = "header" th:text = "${usuario.email}"></h5>
 				</div>
-				<div class = "col s8">
-					<a href = "/usuario/cadastrarUsuario/" class = "btn-large waves-effect waves-light teal right">Lista de Usu&aacute;rios</a>
-				</div>				
+				<div class = "col s3 right">
+					<a href = "/usuario/cadastrarUsuario/" class = "btn-large waves-effect waves-light teal">Lista de Usu&aacute;rios</a>
+				</div>
+				<div class = "col s3 right">
+					<a th:href = "@{${'/emprestimo/'+usuario.id + '/'}}" class = "btn-large waves-effect waves-light teal	">Novo Empr&eacute;stimo</a>
+				</div>
 			</div>		
 			<hr />	
 			<div class = "row">				
@@ -68,7 +71,7 @@
 						<tr th:if="${usuario.objetos}" th:each="objeto : ${usuario.objetos}">
 							<td th:text="${objeto.nome}"> </td>
 							<td th:if="${#strings.isEmpty(objeto.descricao)} == false" th:text="${objeto.descricao}"></td>
-							<td th:unless="${#strings.isEmpty(objeto.descricao)} == false">(Sem descri&ccedil;&atilde;o)</td>
+							<td th:unless="${#strings.isEmpty(objeto.descricao)} == false">(Sem descri&ccedil;&atilde;o)</td>							
 						</tr>
 						<tr th:unless="${usuario.objetos}">
 							<td colspan="2">Nenhum objeto cadastrado.</td>

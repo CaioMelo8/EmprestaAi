@@ -9,6 +9,5 @@ import br.ufc.npi.beans.Usuario;
 
 @Repository
 @Transactional
-public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer>{
-	public Usuario findByNome(String nome);	
+public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer>{	
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,7 +30,7 @@ public class UsuarioController {
 		return model;
 	}
 	
-	@RequestMapping(path = "/salvarUsuario/")
+	@RequestMapping(path = "/salvarUsuario/", method = RequestMethod.POST)
 	public String salvarUsuario(@RequestParam("nomeUsuario") String nomeUsuario, 
 			@RequestParam("emailUsuario") String emailUsuario, 
 				@RequestParam("idadeUsuario") Integer idadeUsuario, @RequestParam("senhaUsuario") String senhaUsuario){
