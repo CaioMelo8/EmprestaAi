@@ -1,6 +1,5 @@
 package br.ufc.npi.controller;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,14 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.ufc.npi.beans.Emprestimo;
-import br.ufc.npi.beans.Objeto;
 import br.ufc.npi.beans.Usuario;
 import br.ufc.npi.service.EmprestimoService;
-import br.ufc.npi.service.ObjetoService;
 import br.ufc.npi.service.UsuarioService;
 
 @Controller
@@ -23,15 +19,12 @@ import br.ufc.npi.service.UsuarioService;
 public class EmprestimoController {	
 	
 	@Autowired
-	private UsuarioService usuarioService;
-	
-	@Autowired
-	private ObjetoService objetoService;
+	private UsuarioService usuarioService;	
 	
 	@Autowired
 	private EmprestimoService emprestimoService;
 	
-	@RequestMapping(path = "/{idUsuario}/")
+	@RequestMapping(path = "/{idUsuario}")
 	public ModelAndView realizarEmprestimo(@PathVariable("idUsuario") Integer idUsuario){
 		ModelAndView model = new ModelAndView("cadastroEmprestimo");
 				
@@ -49,26 +42,13 @@ public class EmprestimoController {
 	}
 	
 	@RequestMapping(path = "/cadastrarEmprestimo/{idUsuarioEmprestante}", method = RequestMethod.POST)
-	public String cadastrarEmprestimo(@PathVariable("idUsuarioEmprestante") Integer idUsuarioEmprestador,
-										@RequestParam("idUsuarioEmprestante") Integer idUsuarioEmprestante,
-											@RequestParam("idObjeto") Integer idObjeto,
-												@RequestParam("dataEmprestimo") Date dataEmprestimo,
-													@RequestParam("dataEntrega") Date dataEntrega){
-		
-		Usuario usuarioEmprestador = usuarioService.buscarUsuario(idUsuarioEmprestador);
-		Usuario usuarioEmprestante = usuarioService.buscarUsuario(idUsuarioEmprestante);
-		
-		Objeto objeto = objetoService.buscarObjeto(idObjeto);
-		
-		Emprestimo emprestimo = new Emprestimo();
-		emprestimo.setEmprestador(usuarioEmprestador);
-		emprestimo.setEmprestante(usuarioEmprestante);
-		emprestimo.setObjeto(objeto);
-		emprestimo.setDataEmprestimo(dataEmprestimo);
-		emprestimo.setDataEntrega(dataEntrega);			
+	public String cadastrarEmprestimo(@PathVariable("idUsuarioEmprestante") Integer idUsuarioEmprestador, Emprestimo emprestimo){
+		Usuario usuarioEmprestador = usuarioService.buscarUsuario(idUsuarioEmprestador);					
+			
+		emprestimo.setEmprestador(usuarioEmprestador);		
 		
 		emprestimoService.salvarEmprestimo(emprestimo);
 		
-		return "redirect:/emprestimo/"+idUsuarioEmprestador + "/";
+		return "redirect:/emprestimo/"+idUsuarioEmprestador;
 	}	
 }

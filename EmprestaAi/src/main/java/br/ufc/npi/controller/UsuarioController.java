@@ -31,17 +31,7 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(path = "/salvarUsuario/", method = RequestMethod.POST)
-	public String salvarUsuario(@RequestParam("nomeUsuario") String nomeUsuario, 
-			@RequestParam("emailUsuario") String emailUsuario, 
-				@RequestParam("idadeUsuario") Integer idadeUsuario, @RequestParam("senhaUsuario") String senhaUsuario){
-		
-		
-		Usuario usuario = new Usuario();
-		usuario.setNome(nomeUsuario);
-		usuario.setEmail(emailUsuario);
-		usuario.setIdade(idadeUsuario);
-		usuario.setSenha(senhaUsuario);
-		
+	public String salvarUsuario(Usuario usuario){				
 		usuarioService.salvarUsuario(usuario);
 		
 		return "redirect:/usuario/cadastrarUsuario/";

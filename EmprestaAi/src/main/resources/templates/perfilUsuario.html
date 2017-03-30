@@ -14,19 +14,20 @@
 		<div class = "container">			
 			<div class = "row valign-wrapper">
 				<div class = "col s6">
-					<h4 class = "header green-text" th:text = "${usuario.nome + ', ' + usuario.idade}"></h4>
+					<h4 class = "header green-text" th:text = "${usuario.nome}"></h4>
 					<h5 class = "header" th:text = "${usuario.email}"></h5>
+					<h5 class = "header" th:text = "${usuario.telefone}"></h5>					
 				</div>
 				<div class = "col s3 right">
 					<a href = "/usuario/cadastrarUsuario/" class = "btn-large waves-effect waves-light teal">Lista de Usu&aacute;rios</a>
 				</div>
 				<div class = "col s3 right">
-					<a th:href = "@{${'/emprestimo/'+usuario.id + '/'}}" class = "btn-large waves-effect waves-light teal	">Novo Empr&eacute;stimo</a>
+					<a th:href = "@{${'/emprestimo/'+usuario.id}}" class = "btn-large waves-effect waves-light teal	">Novo Empr&eacute;stimo</a>
 				</div>
 			</div>		
 			<hr />	
 			<div class = "row">				
-				<form th:action = "@{${'/objeto/cadastrarObjeto/'+usuario.id}}" method = "POST">
+				<form th:action = "@{${'/objeto/cadastrarObjeto/'+usuario.id}}" method = "POST" th:object = "${objeto}">
 					<div class = "row center">
 						<h5>Cadastrar objetos</h5>
 					</div>
@@ -41,12 +42,12 @@
 					<div class = "row valign-wrapper">
 						<div class = "row left col s9">
 							<div class = "row input-field">						
-								<input id = "nomeObjeto" name = "nomeObjeto" type = "text" class = "validate" required="required" />
-								<label for = "nomeObjeto">Nome do objeto</label>						
+								<input th:value = "${nome}" id = "nome" name = "nome" type = "text" class = "validate" required="required" />
+								<label for = "nome">Nome do objeto</label>						
 							</div>
 							<div class = "row input-field">
-								<textarea id = "descricaoObjeto" name = "descricaoObjeto" class = "materialize-textarea"></textarea>
-								<label for = "descricaoObjeto">Descri&ccedil;&atilde;o</label>
+								<textarea th:value = "${descricao}" id = "descricao" name = "descricao" class = "materialize-textarea"></textarea>
+								<label for = "descricao">Descri&ccedil;&atilde;o</label>
 							</div>						
 						</div>				
 						<div class = "row col s3 right">

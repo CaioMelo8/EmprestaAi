@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.ufc.npi.beans.Objeto;
@@ -24,9 +23,7 @@ public class ObjetoController {
 	private UsuarioService usuarioService;
 	
 	@RequestMapping(path = "/cadastrarObjeto/{idUsuario}", method = RequestMethod.POST)
-	public ModelAndView cadastrarObjeto(@PathVariable("idUsuario") Integer idUsuario, 
-									@RequestParam("nomeObjeto") String nomeObjeto,
-										@RequestParam(name = "descricaoObjeto", required = false) String descricaoObjeto){
+	public ModelAndView cadastrarObjeto(@PathVariable("idUsuario") Integer idUsuario, Objeto objeto){
 		
 		ModelAndView model = new ModelAndView("redirect:/usuario/perfil/"+idUsuario);
 		
@@ -36,12 +33,8 @@ public class ObjetoController {
 			String erro = "O usuário já atingiu o limite de objetos.";
 			model.addObject("erro", erro);
 		}			
-		else{
-			Objeto objeto = new Objeto();
-			objeto.setNome(nomeObjeto);
-			objeto.setDescricao(descricaoObjeto);
+		else{			
 			objeto.setUsuarioDono(usuario);
-			
 			usuario.getObjetos().add(objeto);
 			
 			objetoService.salvarObjeto(objeto);

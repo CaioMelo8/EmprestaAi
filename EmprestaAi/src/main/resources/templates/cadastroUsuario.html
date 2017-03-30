@@ -17,29 +17,35 @@
 				<h3 class = "header center">Cadastro de usu&aacute;rios</h3>				
 			</div>
 			<div class = "row">
-				<form id = "formCadastroUsuario" action = "/usuario/salvarUsuario/" method="POST" >
+				<form action = "/usuario/salvarUsuario/" method="POST" th:object = "${usuario}">
 					<div class = "row">
-						<div class = "input-field col s5">					
-							<input id = "nomeUsuario" name = "nomeUsuario" type = "text" class = "validate" required="required" />
-							<label for = "nomeUsuario">Nome de usu&aacute;rio</label>											 		
+						<div class = "input-field col s4">					
+							<input th:value = "${nome}" id = "nome" name = "nome" type = "text" class = "validate" required="required" />
+							<label for = "nome">Nome de usu&aacute;rio</label>											 		
 						</div>
-						<div class = "input-field col s5">
-							<input id = "emailUsuario" name = "emailUsuario" type = "email" class = "validate" required="required" />
-							<label for = "emailUsuario">Endere&ccedil;o de Email</label>					
+						<div class = "input-field col s8">
+							<input th:value = "${email}" id = "email" name = "email" type = "email" class = "validate" required="required" />
+							<label for = "email">Email</label>					
+						</div>						
+					</div>
+					<div class = "row">
+						<div class = "input-field col s8">
+							<input th:value = "${endereco}" id = "endereco" name = "endereco" type = "text" class = "validate" required = "required" />
+							<label for = "endereco">Endere&ccedil;o</label>													
 						</div>
-						<div class = "input-field col s2">
-							<input id = "idadeUsuario" name = "idadeUsuario" type = "number" min = "0" class = "validate" required = "required"/>
-							<label for = "idadeUsuario">Idade</label>
-						</div>	
+						<div class = "input-field col s4">
+							<input th:value = "${telefone}" id = "telefone" name = "telefone" type = "text" class = "validate" required = "required" />
+							<label for = "telefone">Telefone</label>
+						</div>
 					</div>
 					<div class = "row">						
 						<div class = "input-field col s6">
-							<input id = "senhaUsuario" name = "senhaUsuario" type = "password" class = "validate" required = "required" />
-							<label for = "senhaUsuario">Senha</label>
+							<input th:value="${senha}" id = "senha" name = "senha" type = "password" class = "validate" required = "required" />
+							<label for = "senha">Senha</label>
 						</div>
 						<div class = "input-field col s6">
-							<input id = "confirmacaoSenhaUsuario" name = "confirmacaoSenhaUsuario" type = "password" class = "validate" required = "required" />
-							<label for = "confirmacaoSenhaUsuario">Confirma&ccedil;&atilde;o de senha</label>
+							<input id = "confirmacaoSenha" name = "confirmacaoSenha" type = "password" class = "validate" required = "required" />
+							<label for = "confirmacaoSenha">Confirma&ccedil;&atilde;o de senha</label>
 						</div>
 					</div>
 					<div class = "row center">
@@ -57,14 +63,16 @@
 						<tr>
 							<td>Nome</td>
 							<td>Email</td>
-							<td>Idade</td>											
+							<td>Endere&ccedil;o</td>
+							<td>Telefone</td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:if="${usuarios}" th:each="usuario : ${usuarios}">
 							<td th:text="${usuario.nome}"></td>
 							<td th:text="${usuario.email}"></td>
-							<td th:text="${usuario.idade}"></td>
+							<td th:text="${usuario.endereco}"></td>
+							<td th:text = "${usuario.telefone}"></td>
 							<td><a th:href = "@{${'/usuario/perfil/'+usuario.id}}" class = "btn-flat waves-effect waves-teal" >Ver perfil</a></td>
 						</tr>
 					</tbody>

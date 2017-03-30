@@ -14,41 +14,48 @@
 	<body>
 		<div class = "container">
 			<div class = "row valign-wrapper">
-				<div class = "col s12">
-					<h4 th:text="${usuario.nome + ',' + usuario.idade}" class = "header green-text"></h4>
-					<h5 class = "header" th:text="${usuario.email}"></h5>
-				</div>	
+				<div class = "col s6 left">
+					<h4 class = "header green-text" th:text = "${usuario.nome}"></h4>
+					<h5 class = "header" th:text = "${usuario.email}"></h5>
+					<h5 class = "header" th:text = "${usuario.telefone}"></h5>					
+				</div>
+				<div class = "col s3 right">
+					<a href = "/usuario/cadastrarUsuario/" class = "btn-large waves-effect waves-light teal">Lista de Usu&aacute;rios</a>					
+				</div>
+				<div class = "col s3 right">					
+					<a th:href = "@{${'/usuario/perfil/'+usuario.id}}" class = "btn-large waves-effect waves-light teal">Voltar ao Perfil</a>
+				</div>
 			</div>
 			<hr />
 			<div class = "row">
-				<form th:action = "@{${'/emprestimo/cadastrarEmprestimo/'+usuario.id}}" method = "POST">
+				<form th:action = "@{${'/emprestimo/cadastrarEmprestimo/'+usuario.id}}" method = "POST" th:object = "${emprestimo}">
 					<div class = "row center">
 						<h4 class = "header">Cadastrar empr&eacute;stimo</h4>
 					</div>
 					<div class = "row">
 						<div class = "row">											
 							<div class = "col s6">
-								<label for = "objeto" class = "active">Objeto a ser emprestado</label>
-								<select id = "idObjeto" name = "idObjeto" class = "browser-default" required="required" >
+								<label for = "objeto" class = "active">Objeto a ser emprestado</label>								
+								<select id = "objeto" name = "objeto" class = "browser-default" required="required" >
 									<option value = "" disabled="disabled" selected="selected">Escolha um objeto</option>
 									<option th:each="objeto : ${usuario.objetos}" th:value = "${objeto.id}" th:text = "${objeto.nome}" ></option>															
-								</select>
+								</select>								
 							</div>
-							<div class = "col s6">
-								<label for = "idUsuarioEmprestante" class = "active">Amigo a quem emprestar</label>
-								<select id = "idUsuarioEmprestante" name = "idUsuarioEmprestante" class = "browser-default" required="required">
+							<div class = "col s6">	
+								<label for = "emprestante" class = "active">Amigo a quem emprestar</label>							
+								<select id = "emprestante" name = "emprestante" class = "browser-default" required="required">
 									<option value = "" disabled="disabled" selected="selected">Escolha um amigo</option>
 									<option th:each="emprestante : ${emprestantes}" th:value = "${emprestante.id}" th:text = "${emprestante.nome}"></option>
-								</select>								
+								</select>														
 							</div>							
 						</div>
 						<div class = "row">
 							<div class = "input-field col s6">
-								<input id = "dataEmprestimo" name = "dataEmprestimo" class = "datepicker" type = "date" required="required" />
+								<input th:value = "${dataEmprestimo}" id = "dataEmprestimo" name = "dataEmprestimo" class = "datepicker" type = "date" required="required" />
 								<label for = "dataEmprestimo" class = "active">Data de Empr&eacute;stimo</label>
 							</div>
 							<div class = "input-field col s6">
-								<input id = "dataEntrega" name = "dataEntrega" class = "datepicker" type = "date" required="required" />
+								<input th:value = "${dataEntrega}" id = "dataEntrega" name = "dataEntrega" class = "datepicker" type = "date" required="required" />
 								<label for = "dataEntrega" class = "active">Data de Entrega</label>
 							</div>
 						</div>
@@ -72,18 +79,21 @@
 						<tr>
 							<td>Nome do Amigo</td>
 							<td>Email</td>
-							<td>Idade</td>
+							<td>Telefone</td>
+							<td>Endere&ccedil;o</td>
 							<td>Data de Emp&eacute;stimo</td>
 							<td>Data de Entrega</td>
+							<td colspan = "2"></td>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:if="${emprestimos}" th:each="emprestimo : ${emprestimos}">
+						<tr th:each="emprestimo : ${emprestimos}">
 							<td th:text = "${emprestimo.emprestante.nome}"></td>
 							<td th:text = "${emprestimo.emprestante.email}"></td>
-							<td th:text = "${emprestimo.emprestante.idade}"></td>
-							<td th:text = "${#dates.format(emprestimo.dataEmprestimo, 'dd/MMM/yyyy')}"></td>
-							<td th:text = "${#dates.format(emprestimo.dataEntrega, 'dd/MMM/yyyy')}"></td>							
+							<td th:text = "${emprestimo.emprestante.telefone}"></td>
+							<td th:text = "${emprestimo.emprestante.endereco}"></td>
+							<td th:text = "${#dates.format(emprestimo.dataEmprestimo, 'dd/MM/yyyy')}"></td>
+							<td th:text = "${#dates.format(emprestimo.dataEntrega, 'dd/MM/yyyy')}"></td>													
 						</tr>
 						<tr th:unless="${emprestimos}">
 							<td colspan = "5">Nenhum empr&eacute;stimo realizado.</td>
