@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,10 +19,12 @@ public class Emprestimo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "emprestador")
 	private Usuario emprestador;
 	
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "emprestante")
 	private Usuario emprestante;
 	
 	@OneToOne
@@ -30,7 +34,7 @@ public class Emprestimo {
 	private Date dataEmprestimo;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date dataEntrega;
+	private Date dataDevolucao;
 
 	public Integer getId() {
 		return id;
@@ -39,7 +43,7 @@ public class Emprestimo {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	
 	public Usuario getEmprestador() {
 		return emprestador;
 	}
@@ -47,11 +51,11 @@ public class Emprestimo {
 	public void setEmprestador(Usuario emprestador) {
 		this.emprestador = emprestador;
 	}
-
+		
 	public Usuario getEmprestante() {
 		return emprestante;
 	}
-
+		
 	public void setEmprestante(Usuario emprestante) {
 		this.emprestante = emprestante;
 	}
@@ -64,12 +68,12 @@ public class Emprestimo {
 		this.dataEmprestimo = dataEmprestimo;
 	}
 
-	public Date getDataEntrega() {
-		return dataEntrega;
+	public Date getDataDevolucao() {
+		return dataDevolucao;
 	}
 
-	public void setDataEntrega(Date dataEntrega) {
-		this.dataEntrega = dataEntrega;
+	public void setDataDevolucao(Date dataDevolucao) {
+		this.dataDevolucao = dataDevolucao;
 	}
 
 	public Objeto getObjeto() {

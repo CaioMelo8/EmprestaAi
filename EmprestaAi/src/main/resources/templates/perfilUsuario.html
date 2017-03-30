@@ -16,20 +16,20 @@
 				<div class = "col s6">
 					<h4 class = "header green-text" th:text = "${usuario.nome}"></h4>
 					<h5 class = "header" th:text = "${usuario.email}"></h5>
-					<h5 class = "header" th:text = "${usuario.telefone}"></h5>					
+					<h5 class = "header" th:text = "${usuario.telefone}"></h5>
 				</div>
 				<div class = "col s3 right">
 					<a href = "/usuario/cadastrarUsuario/" class = "btn-large waves-effect waves-light teal">Lista de Usu&aacute;rios</a>
 				</div>
 				<div class = "col s3 right">
-					<a th:href = "@{${'/emprestimo/'+usuario.id}}" class = "btn-large waves-effect waves-light teal	">Novo Empr&eacute;stimo</a>
+					<a th:href = "@{${'/emprestimo/'+usuario.id}}" class = "btn-large waves-effect waves-light teal	">Meus Empr&eacute;stimos</a>
 				</div>
 			</div>		
 			<hr />	
-			<div class = "row">				
+			<div class = "row">
 				<form th:action = "@{${'/objeto/cadastrarObjeto/'+usuario.id}}" method = "POST" th:object = "${objeto}">
 					<div class = "row center">
-						<h5>Cadastrar objetos</h5>
+						<h4 class = "header">Cadastrar objetos</h4>
 					</div>
 					<div th:if="${erro}" class = "row valign-wrapper">
 						<div class = "chip transparent red-text">
@@ -40,7 +40,7 @@
 						</div>
 					</div>
 					<div class = "row valign-wrapper">
-						<div class = "row left col s9">
+						<div class = "row col s8 left">
 							<div class = "row input-field">						
 								<input th:value = "${nome}" id = "nome" name = "nome" type = "text" class = "validate" required="required" />
 								<label for = "nome">Nome do objeto</label>						
@@ -48,7 +48,7 @@
 							<div class = "row input-field">
 								<textarea th:value = "${descricao}" id = "descricao" name = "descricao" class = "materialize-textarea"></textarea>
 								<label for = "descricao">Descri&ccedil;&atilde;o</label>
-							</div>						
+							</div>
 						</div>				
 						<div class = "row col s3 right">
 							<button class = "btn-large waves-effect waves-light teal" type = "submit" name = "action" >
@@ -59,29 +59,43 @@
 					</div>													
 				</form>
 			</div>
-			
-			<div class = "row">
+			<div class = "row center">
+				<h4 class = "header">Empr&eacute;stimos</h4>
+			</div>
+			<div th:if="${erroRemocao}" class = "row valign-wrapper">
+				<div class = "chip transparent red-text">
+					<span>Erro: </span>
+				</div>								
+				<div class = "chip red white-text right">
+					<span th:text="${erroRemocao}"></span>
+				</div>
+			</div>
+			<div class = "row">				
 				<table class = "striped">
 					<thead>
 						<tr>
 							<td>Nome</td>
 							<td>Descri&ccedil;&atilde;o</td>
+							<td></td>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:if="${usuario.objetos}" th:each="objeto : ${usuario.objetos}">
+						<tr th:each="objeto : ${usuario.objetos}">
 							<td th:text="${objeto.nome}"> </td>
+							
 							<td th:if="${#strings.isEmpty(objeto.descricao)} == false" th:text="${objeto.descricao}"></td>
-							<td th:unless="${#strings.isEmpty(objeto.descricao)} == false">(Sem descri&ccedil;&atilde;o)</td>							
+							<td th:unless="${#strings.isEmpty(objeto.descricao)} == false">(Sem descri&ccedil;&atilde;o)</td>
+							
+							<td><a th:href = "@{${'/objeto/removerObjeto/'+objeto.id}}" class = "btn-flat waves-effect waves-teal">Remover</a></td>							
 						</tr>
-						<tr th:unless="${usuario.objetos}">
-							<td colspan="2">Nenhum objeto cadastrado.</td>
+						<tr th:if="${#lists.isEmpty(usuario.objetos)}">
+							<td colspan="3">Nenhum objeto cadastrado.</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-				
+		
 		<script src="/webjars/jquery/2.2.4/jquery.js"></script>
 		<script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>
 	</body>

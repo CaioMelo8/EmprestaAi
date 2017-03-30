@@ -19,6 +19,9 @@ public class Objeto {
 	@OneToOne
 	private Usuario usuarioDono;
 	
+	@OneToOne
+	private Emprestimo emprestimo;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -42,5 +45,11 @@ public class Objeto {
 	}
 	public void setUsuarioDono(Usuario usuarioDono) {
 		this.usuarioDono = usuarioDono;
+	}
+	public Emprestimo getEmprestimo() {
+		return emprestimo;
+	}
+	public void setEmprestimo(Emprestimo emprestimo) {
+		this.emprestimo = emprestimo;
 	}	
 }

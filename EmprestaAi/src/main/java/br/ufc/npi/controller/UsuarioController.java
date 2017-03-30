@@ -37,9 +37,10 @@ public class UsuarioController {
 		return "redirect:/usuario/cadastrarUsuario/";
 	}
 	
-	@RequestMapping(path = "/perfil/{idUsuario}")
+	@RequestMapping(path = "/perfil/{idUsuario}", method = RequestMethod.GET)
 	public ModelAndView perfilUsuario(@PathVariable("idUsuario") Integer idUsuario, 
-										@RequestParam(name = "erro", required = false) String erro){
+										@RequestParam(name = "erro", required = false) String erro,
+											@RequestParam(name = "erroRemocao", required = false) String erroRemocao){
 		
 		ModelAndView model = new ModelAndView("perfilUsuario");
 		
@@ -47,7 +48,8 @@ public class UsuarioController {
 		
 		model.addObject("usuario", usuario);
 		model.addObject("erro", erro);
+		model.addObject("erroRemocao", erroRemocao);
 		
 		return model;
-	}	
+	}
 }

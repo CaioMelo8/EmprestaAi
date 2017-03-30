@@ -24,5 +24,9 @@ public class UsuarioService {
 	
 	public List<Usuario> buscarTodosUsuarios(){
 		return usuarioRepo.findAll();
+	}	
+	
+	public List<Usuario> buscarTodosUsuariosExceto(Integer id){
+		return usuarioRepo.buscarTodosUsuariosExceto(id);
 	}
 }

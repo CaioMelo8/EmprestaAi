@@ -23,8 +23,7 @@ public class ObjetoController {
 	private UsuarioService usuarioService;
 	
 	@RequestMapping(path = "/cadastrarObjeto/{idUsuario}", method = RequestMethod.POST)
-	public ModelAndView cadastrarObjeto(@PathVariable("idUsuario") Integer idUsuario, Objeto objeto){
-		
+	public ModelAndView cadastrarObjeto(@PathVariable("idUsuario") Integer idUsuario, Objeto objeto){		
 		ModelAndView model = new ModelAndView("redirect:/usuario/perfil/"+idUsuario);
 		
 		Usuario usuario = usuarioService.buscarUsuario(idUsuario);
@@ -32,13 +31,35 @@ public class ObjetoController {
 		if (usuario.getObjetos().size() == 10){
 			String erro = "O usuário já atingiu o limite de objetos.";
 			model.addObject("erro", erro);
-		}			
+		}
 		else{			
 			objeto.setUsuarioDono(usuario);
 			usuario.getObjetos().add(objeto);
 			
 			objetoService.salvarObjeto(objeto);
 			usuarioService.salvarUsuario(usuario);
+		}
+		
+		return model;
+	}
+	
+	@RequestMapping(path = "/removerObjeto/{idObjeto}")
+	public ModelAndView removerObjeto(@PathVariable("idObjeto") Integer idObjeto){				
+		Objeto objeto = objetoService.buscarObjeto(idObjeto);
+		Usuario usuario = objeto.getUsuarioDono();
+		
+		ModelAndView model = new ModelAndView("redirect:/usuario/perfil/"+usuario.getId());
+		
+		if (objeto.getEmprestimo() != null){
+			String erro = "O objeto não pode ser removido, pois está emprestado no momento.";
+			
+			model.addObject("erroRemocao", erro);
+		}
+		else{						
+			usuario.getObjetos().remove(objeto);
+			
+			usuarioService.salvarUsuario(usuario);
+			objetoService.removerObjeto(objeto);
 		}
 		
 		return model;

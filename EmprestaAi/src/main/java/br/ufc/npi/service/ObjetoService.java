@@ -18,6 +18,10 @@ public class ObjetoService {
 		objetoRepo.save(objeto);
 	}
 	
+	public void removerObjeto(Objeto objeto){
+		objetoRepo.delete(objeto);
+	}
+	
 	public Objeto buscarObjeto(Integer id){
 		return objetoRepo.findOne(id);
 	}

@@ -16,6 +16,7 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	@Email
 	private String email;
 	
@@ -23,7 +24,7 @@ public class Usuario {
 	private String endereco;
 	private String telefone; 
 	
-	private String senha;
+	private String senha;	
 	
 	@OneToMany
 	private List<Objeto> objetos;
@@ -69,6 +70,5 @@ public class Usuario {
 	}
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}	
-	
+	}
 }

@@ -13,13 +13,10 @@ import br.ufc.npi.beans.Usuario;
 
 @Repository
 @Transactional
-public interface EmprestimoRepositorio extends JpaRepository<Emprestimo, Integer> {
-	public Emprestimo findEmprestimoByEmprestador(Usuario emprestador);
-	public Emprestimo findEmprestimoByEmprestante(Usuario emprestante);
+public interface EmprestimoRepositorio extends JpaRepository<Emprestimo, Integer> {	
+	@Query("from Emprestimo e where e.emprestador = ?1")
+	public List<Emprestimo> findEmprestimosByEmprestador(Usuario emprestador);
 	
-	@Query(value = "select * from Emprestimo where emprestador_id = ?1", nativeQuery = true)
-	public List<Emprestimo> findEmprestimosByEmprestador(Integer idEmprestador);
-	
-	@Query(value = "select * from Emprestimo where emprestante_id = ?1", nativeQuery = true)
-	public List<Emprestimo> findEmprestimosByEmprestante(Integer idEmprestante);
+	@Query("from Emprestimo e where e.emprestante = ?1")
+	public List<Emprestimo> findEmprestimosByEmprestante(Usuario emprestante);
 }
