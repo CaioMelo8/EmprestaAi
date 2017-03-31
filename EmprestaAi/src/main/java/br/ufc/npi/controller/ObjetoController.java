@@ -55,7 +55,7 @@ public class ObjetoController {
 			
 			model.addObject("erroRemocao", erro);
 		}
-		else{						
+		else{
 			usuario.getObjetos().remove(objeto);
 			
 			usuarioService.salvarUsuario(usuario);

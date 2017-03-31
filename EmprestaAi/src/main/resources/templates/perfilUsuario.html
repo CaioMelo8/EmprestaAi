@@ -74,9 +74,9 @@
 				<table class = "striped">
 					<thead>
 						<tr>
-							<td>Nome</td>
-							<td>Descri&ccedil;&atilde;o</td>
-							<td></td>
+							<th>Nome</th>
+							<th>Descri&ccedil;&atilde;o</th>
+							<th> </th>
 						</tr>
 					</thead>
 					<tbody>
@@ -89,7 +89,7 @@
 							<td><a th:href = "@{${'/objeto/removerObjeto/'+objeto.id}}" class = "btn-flat waves-effect waves-teal">Remover</a></td>							
 						</tr>
 						<tr th:if="${#lists.isEmpty(usuario.objetos)}">
-							<td colspan="3">Nenhum objeto cadastrado.</td>
+							<td colspan="3"> Nenhum objeto cadastrado.</td>
 						</tr>
 					</tbody>
 				</table>
