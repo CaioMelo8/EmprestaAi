@@ -31,7 +31,10 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(path = "/salvarUsuario/", method = RequestMethod.POST)
-	public String salvarUsuario(Usuario usuario){				
+	public String salvarUsuario(Usuario usuario){
+		usuario.setRole("ROLE_USUARIO");
+		usuario.setAtivo(true);
+		
 		usuarioService.salvarUsuario(usuario);
 		
 		return "redirect:/usuario/cadastrarUsuario/";

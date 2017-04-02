@@ -1,5 +1,7 @@
 package br.ufc.npi;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,19 +13,24 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
+	@Autowired
+	private DataSource dataSource;
+	
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+	protected void configure(HttpSecurity http) throws Exception {		
 		http
-			.authorizeRequests()
-				.antMatchers("/").permitAll()
-				.antMatchers("/usuario/cadastrarUsuario/", "/usuario/salvarUsuario/**", "/usuario/perfil/**").permitAll()
-				.antMatchers("/objeto/cadastrarObjeto/**", "/objeto/removerObjeto/**").permitAll()
-				.antMatchers("/emprestimo/**").permitAll()
+			.authorizeRequests()				
 				.antMatchers("/webjars/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
-			.logout()
-				.permitAll();
+			.formLogin()
+				.loginPage("/login").failureUrl("/login?error").defaultSuccessUrl("/", true)
+				.usernameParameter("username")
+				.passwordParameter("password")
+				.permitAll()
+				.and()
+			.logout()				
+				.logoutSuccessUrl("/login?logout");
 	}
 	
 	@Autowired
@@ -31,5 +38,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		auth
 			.inMemoryAuthentication()
 				.withUser("user").password("123").roles("USER");
+			
+		auth.jdbcAuthentication().dataSource(dataSource)
+			.usersByUsernameQuery("select nome, senha, ativo from usuario where nome=?")
+			.authoritiesByUsernameQuery("select nome, role from usuario where nome=?");		
 	}
 }

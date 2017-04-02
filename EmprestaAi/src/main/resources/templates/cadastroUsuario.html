@@ -14,7 +14,14 @@
 	<body>
 		<div class = "container">
 			<div class = "row">				
-				<h3 class = "header center">Cadastro de usu&aacute;rios</h3>				
+				<h3 class = "header center">Cadastro de usu&aacute;rios</h3>
+				<form th:action = "@{/logout}" method = "POST">					
+					<div class = "row center">
+						<button type = "submit" name = "action" class = "btn-flat waves-effect waves-teal">
+							Logout
+						</button>
+					</div>			
+				</form>
 			</div>
 			<div class = "row">
 				<form action = "/usuario/salvarUsuario/" method="POST" th:object = "${usuario}">

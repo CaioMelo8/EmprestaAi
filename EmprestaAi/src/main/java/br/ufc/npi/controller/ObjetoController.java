@@ -43,7 +43,7 @@ public class ObjetoController {
 		return model;
 	}
 	
-	@RequestMapping(path = "/removerObjeto/{idObjeto}")
+	@RequestMapping(path = "/removerObjeto/{idObjeto}", method = RequestMethod.GET)
 	public ModelAndView removerObjeto(@PathVariable("idObjeto") Integer idObjeto){				
 		Objeto objeto = objetoService.buscarObjeto(idObjeto);
 		Usuario usuario = objeto.getUsuarioDono();
@@ -52,7 +52,6 @@ public class ObjetoController {
 		
 		if (objeto.getEmprestimo() != null){
 			String erro = "O objeto não pode ser removido, pois está emprestado no momento.";
-			
 			model.addObject("erroRemocao", erro);
 		}
 		else{

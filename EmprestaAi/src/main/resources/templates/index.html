@@ -15,6 +15,9 @@
 		<div class = "container">
 			<div class = "row center">
 				<a href = "/usuario/cadastrarUsuario/" class = "waves-effect wafes-teal btn-flat">Cadastrar-se</a>
+				<form th:action="@{/logout}" method = "POST">
+					<button type = "submit" name = "logout" class = "waves-effect wafes-teal btn-flat">Logout</button	>
+				</form>
 			</div>
 		</div>
 		
