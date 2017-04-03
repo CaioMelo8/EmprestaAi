@@ -9,45 +9,48 @@
 			href = "/webjars/materializecss/0.97.7/css/materialize.css" />
 		
 		<meta charset="UTF-8" />
-		<title>Cadastro de Empr&eacute;stimo - EmprestaAi</title>
+		<title>EmprestaAi - Empr&eacute;stimos</title>
 	</head>
 	<body>
 		<div class = "container">
 			<div class = "row valign-wrapper">
-				<div class = "col s6 left">
-					<h4 class = "header green-text" th:text = "${usuario.nome}"></h4>
-					<h5 class = "header" th:text = "${usuario.email}"></h5>
-					<h5 class = "header" th:text = "${usuario.telefone}"></h5>					
+				<div class = "col s9 left">
+					<h4 class = "header green-text" th:text = "${session.usuario.nome}"></h4>
+					<h5 class = "header" th:text = "${session.usuario.email}"></h5>
+					<h5 class = "header" th:text = "${session.usuario.telefone}"></h5>
+					<form th:action= "@{/logout}" method = "POST">
+					<button type = "submit" name = "action" class = "btn waves-effect waves-teal">
+						Sair
+					</button>
+				</form>
 				</div>
 				<div class = "col s3 right">
-					<a href = "/usuario/cadastrarUsuario/" class = "btn-large waves-effect waves-light teal">Lista de Usu&aacute;rios</a>					
+					<a th:href = "@{/usuario/home/}" class = "btn-large waves-effect waves-light teal">Voltar ao Perfil</a>
 				</div>
-				<div class = "col s3 right">					
-					<a th:href = "@{${'/usuario/perfil/'+usuario.id}}" class = "btn-large waves-effect waves-light teal">Voltar ao Perfil</a>
-				</div>
+				
 			</div>
 			<hr />
 			<div class = "row">
-				<form th:action = "@{${'/emprestimo/cadastrarEmprestimo/'+usuario.id}}" method = "POST" th:object = "${emprestimo}">
+				<form th:action = "@{/emprestimo/cadastrarEmprestimo}" method = "POST" th:object = "${emprestimo}">
 					<div class = "row center">
 						<h4 class = "header">Cadastrar empr&eacute;stimo</h4>
 					</div>
 					<div class = "row">
-						<div class = "row">											
+						<div class = "row">
 							<div class = "col s6">
-								<label for = "objeto" class = "active">Objeto a ser emprestado</label>								
+								<label for = "objeto" class = "active">Objeto a ser emprestado</label>
 								<select id = "objeto" name = "objeto" class = "browser-default" required="required" >
 									<option value = "" disabled="disabled" selected="selected">Escolha um objeto</option>
-									<option th:each="objeto : ${usuario.objetos}" th:unless = "${objeto.emprestimo}" th:value = "${objeto.id}" th:text = "${objeto.nome}" ></option>																														
+									<option th:each="objeto : ${usuario.objetos}" th:unless = "${objeto.emprestimo}" th:value = "${objeto.id}" th:text = "${objeto.nome}" ></option>
 								</select>
 							</div>
 							<div class = "col s6">	
-								<label for = "emprestante" class = "active">Usu&aacute;rio a quem emprestar</label>							
+								<label for = "emprestante" class = "active">Usu&aacute;rio a quem emprestar</label>
 								<select id = "emprestante" name = "emprestante" class = "browser-default" required="required">
 									<option value = "" disabled="disabled" selected="selected">Escolha um usu&aacute;rio</option>
 									<option th:each="emprestante : ${emprestantes}" th:value = "${emprestante.id}" th:text = "${emprestante.nome}"></option>
-								</select>														
-							</div>			
+								</select>
+							</div>
 						</div>
 						<div class = "row">
 							<div class = "input-field col s6">
@@ -65,37 +68,37 @@
 									Cadastrar Empr&eacute;stimo
 								</button>
 								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-							</div>					
-						</div>		
+							</div>
+						</div>
 					</div>
 				</form>
 			</div>
 			<div class = "row center">
 				<h4 class = "header">Empr&eacute;stimos</h4>
 			</div>		
-			<div class = "row">							
+			<div class = "row">
 				<table class = "striped">
 					<thead>
 						<tr>
 							<th>Emprestado para</th>
 							<th>Telefone</th>
-							<th>Objeto</th>																
+							<th>Objeto</th>
 							<th>Data de Emp&eacute;stimo</th>
 							<th>Data de Devolu&ccedil;&atilde;o</th>
-							<th></th>								
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="emprestimo : ${emprestimos}">
 							<td th:text = "${emprestimo.emprestante.nome}"></td>
 							<td th:text = "${emprestimo.emprestante.telefone}"> </td>
-							<td th:text = "${emprestimo.objeto.nome}"></td>																					
+							<td th:text = "${emprestimo.objeto.nome}"></td>
 							<td th:text = "${#dates.format(emprestimo.dataEmprestimo, 'dd/MM/yyyy')}"></td>
 							<td th:text = "${#dates.format(emprestimo.dataDevolucao, 'dd/MM/yyyy')}"></td>
-							<td><a th:href = "@{${'/emprestimo/confirmarDevolucao/'+emprestimo.id}}" class = "btn-flat waves-effect waves-teal">Confirmar devolu&ccedil;&atilde;o</a></td>											
+							<td><a th:href = "@{${'/emprestimo/confirmarDevolucao/'+emprestimo.id}}" class = "btn-flat waves-effect waves-teal">Confirmar devolu&ccedil;&atilde;o</a></td>
 						</tr>
 						<tr th:if="${#lists.isEmpty(emprestimos)}">
-							<td colspan = "5">Nenhum empr&eacute;stimo realizado.</td>
+							<td colspan = "6">Nenhum empr&eacute;stimo realizado.</td>
 						</tr>
 					</tbody>
 				</table>

@@ -1,5 +1,7 @@
 package br.ufc.npi.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +15,7 @@ import br.ufc.npi.service.ObjetoService;
 import br.ufc.npi.service.UsuarioService;
 
 @Controller
-@RequestMapping(path = "/objeto/")
+@RequestMapping(path = "/objeto")
 public class ObjetoController {
 	
 	@Autowired
@@ -22,11 +24,13 @@ public class ObjetoController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@RequestMapping(path = "/cadastrarObjeto/{idUsuario}", method = RequestMethod.POST)
-	public ModelAndView cadastrarObjeto(@PathVariable("idUsuario") Integer idUsuario, Objeto objeto){		
-		ModelAndView model = new ModelAndView("redirect:/usuario/perfil/"+idUsuario);
+	@RequestMapping(path = "/cadastrarObjeto", method = RequestMethod.POST)
+	public ModelAndView cadastrarObjeto(Objeto objeto, HttpSession session){
+		ModelAndView model = new ModelAndView("redirect:/usuario/home/");
 		
-		Usuario usuario = usuarioService.buscarUsuario(idUsuario);
+		Usuario usuarioAutenticado = (Usuario) session.getAttribute("usuario");
+		
+		Usuario usuario = usuarioService.buscarUsuario(usuarioAutenticado.getId());
 		
 		if (usuario.getObjetos().size() == 10){
 			String erro = "O usuário já atingiu o limite de objetos.";
@@ -38,6 +42,8 @@ public class ObjetoController {
 			
 			objetoService.salvarObjeto(objeto);
 			usuarioService.salvarUsuario(usuario);
+			
+			session.setAttribute("usuario", usuario);
 		}
 		
 		return model;
@@ -48,7 +54,7 @@ public class ObjetoController {
 		Objeto objeto = objetoService.buscarObjeto(idObjeto);
 		Usuario usuario = objeto.getUsuarioDono();
 		
-		ModelAndView model = new ModelAndView("redirect:/usuario/perfil/"+usuario.getId());
+		ModelAndView model = new ModelAndView("redirect:/usuario/home/");
 		
 		if (objeto.getEmprestimo() != null){
 			String erro = "O objeto não pode ser removido, pois está emprestado no momento.";

@@ -2,6 +2,8 @@ package br.ufc.npi.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,14 @@ public class UsuarioService {
 		usuarioRepo.save(usuario);
 	}
 	
+	
 	public Usuario buscarUsuario(Integer id){
 		return usuarioRepo.findOne(id);
+	}
+	
+	@Transactional
+	public Usuario buscarUsuarioPorNome(String nome){
+		return usuarioRepo.findUsuarioByNome(nome);
 	}
 	
 	public List<Usuario> buscarTodosUsuarios(){

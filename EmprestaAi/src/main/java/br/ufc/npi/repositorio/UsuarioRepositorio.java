@@ -15,4 +15,6 @@ import br.ufc.npi.beans.Usuario;
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer>{
 	@Query("from Usuario u where u.id != ?1")
 	public List<Usuario> buscarTodosUsuariosExceto(Integer id);
+	
+	public Usuario findUsuarioByNome(String nome);
 }

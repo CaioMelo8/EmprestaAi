@@ -3,6 +3,7 @@ package br.ufc.npi.beans;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,10 +28,8 @@ public class Usuario {
 	
 	private boolean ativo;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY)
 	private List<Objeto> objetos;
-
-		
 
 	public Integer getId() {
 		return id;

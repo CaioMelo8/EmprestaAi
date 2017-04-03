@@ -8,69 +8,71 @@
 		<link type = "text/css" rel = "stylesheet" media = "screen,projection" href = "/webjars/materializecss/0.97.7/css/materialize.css" />
 		
 		<meta charset="UTF-8" />
-		<title>Perfil - EmprestaAi</title>
+		<title>EmprestaAi - Home</title>
 	</head>
 	<body>
-		<div class = "container">			
+		<div class = "container">
 			<div class = "row valign-wrapper">
-				<div class = "col s6">
-					<h4 class = "header green-text" th:text = "${usuario.nome}"></h4>
-					<h5 class = "header" th:text = "${usuario.email}"></h5>
-					<h5 class = "header" th:text = "${usuario.telefone}"></h5>
+				<div class = "col s9 left">
+					<h4 class = "header green-text" th:text = "${session.usuario.nome}"></h4>
+					<h5 class = "header" th:text = "${session.usuario.email}"></h5>
+					<h5 class = "header" th:text = "${session.usuario.telefone}"></h5>
+					<form th:action= "@{/logout}" method = "POST">
+						<button type = "submit" name = "action" class = "btn waves-effect waves-teal">
+							Sair
+						</button>
+					</form>
 				</div>
 				<div class = "col s3 right">
-					<a href = "/usuario/cadastrarUsuario/" class = "btn-large waves-effect waves-light teal">Lista de Usu&aacute;rios</a>
+					<a th:href = "@{/emprestimo/}" class = "btn-large waves-effect waves-light teal	">Meus Empr&eacute;stimos</a>
 				</div>
-				<div class = "col s3 right">
-					<a th:href = "@{${'/emprestimo/'+usuario.id}}" class = "btn-large waves-effect waves-light teal	">Meus Empr&eacute;stimos</a>
-				</div>
-			</div>		
-			<hr />	
+			</div>
+			<hr />
 			<div class = "row">
-				<form th:action = "@{${'/objeto/cadastrarObjeto/'+usuario.id}}" method = "POST" th:object = "${objeto}">
+				<form th:action = "@{/objeto/cadastrarObjeto}" method = "POST" th:object = "${objeto}">
 					<div class = "row center">
 						<h4 class = "header">Cadastrar objetos</h4>
 					</div>
 					<div th:if="${erro}" class = "row valign-wrapper">
 						<div class = "chip transparent red-text">
 							<span>Erro: </span>
-						</div>								
+						</div>
 						<div class = "chip red white-text right">
 							<span th:text="${erro}"></span>
 						</div>
 					</div>
 					<div class = "row valign-wrapper">
 						<div class = "row col s8 left">
-							<div class = "row input-field">						
+							<div class = "row input-field">
 								<input th:value = "${nome}" id = "nome" name = "nome" type = "text" class = "validate" required="required" />
-								<label for = "nome">Nome do objeto</label>						
+								<label for = "nome">Nome do objeto</label>
 							</div>
 							<div class = "row input-field">
 								<textarea th:value = "${descricao}" id = "descricao" name = "descricao" class = "materialize-textarea"></textarea>
 								<label for = "descricao">Descri&ccedil;&atilde;o</label>
 							</div>
-						</div>				
+						</div>
 						<div class = "row col s3 right">
 							<button class = "btn-large waves-effect waves-light teal" type = "submit" name = "action" >
 								Cadastrar objeto
-							</button>							
-							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>						
+							</button>
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 						</div>
-					</div>													
+					</div>
 				</form>
 			</div>
 			<div class = "row center">
-				<h4 class = "header">Empr&eacute;stimos</h4>
+				<h4 class = "header">Meus objetos</h4>
 			</div>
 			<div th:if="${erroRemocao}" class = "row valign-wrapper">
 				<div class = "chip transparent red-text">
 					<span>Erro: </span>
-				</div>								
+				</div>
 				<div class = "chip red white-text right">
 					<span th:text="${erroRemocao}"></span>
 				</div>
 			</div>
-			<div class = "row">				
+			<div class = "row">
 				<table class = "striped">
 					<thead>
 						<tr>

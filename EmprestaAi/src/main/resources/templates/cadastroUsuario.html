@@ -9,43 +9,36 @@
 			href = "/webjars/materializecss/0.97.7/css/materialize.css" />
 		
 		<meta charset="UTF-8" />
-		<title>Cadastro de Usu&aacute;rio - EmprestaAi</title>
+		<title>EmprestaAi - Cadastrar-se</title>
 	</head>
 	<body>
 		<div class = "container">
-			<div class = "row">				
-				<h3 class = "header center">Cadastro de usu&aacute;rios</h3>
-				<form th:action = "@{/logout}" method = "POST">					
-					<div class = "row center">
-						<button type = "submit" name = "action" class = "btn-flat waves-effect waves-teal">
-							Logout
-						</button>
-					</div>			
-				</form>
+			<div class = "row">
+				<h3 class = "header center">Cadastrar-se</h3>
 			</div>
 			<div class = "row">
-				<form action = "/usuario/salvarUsuario/" method="POST" th:object = "${usuario}">
+				<form th:action = "@{/salvarCadastro}" method="POST" th:object = "${usuario}">
 					<div class = "row">
-						<div class = "input-field col s4">					
+						<div class = "input-field col s4">
 							<input th:value = "${nome}" id = "nome" name = "nome" type = "text" class = "validate" required="required" />
-							<label for = "nome">Nome de usu&aacute;rio</label>											 		
+							<label for = "nome">Nome de usu&aacute;rio</label>
 						</div>
 						<div class = "input-field col s8">
 							<input th:value = "${email}" id = "email" name = "email" type = "email" class = "validate" required="required" />
-							<label for = "email">Email</label>					
-						</div>						
+							<label for = "email">Email</label>
+						</div>
 					</div>
 					<div class = "row">
 						<div class = "input-field col s8">
 							<input th:value = "${endereco}" id = "endereco" name = "endereco" type = "text" class = "validate" required = "required" />
-							<label for = "endereco">Endere&ccedil;o</label>													
+							<label for = "endereco">Endere&ccedil;o</label>
 						</div>
 						<div class = "input-field col s4">
 							<input th:value = "${telefone}" id = "telefone" name = "telefone" type = "text" class = "validate" required = "required" />
 							<label for = "telefone">Telefone</label>
 						</div>
 					</div>
-					<div class = "row">						
+					<div class = "row">
 						<div class = "input-field col s6">
 							<input th:value="${senha}" id = "senha" name = "senha" type = "password" class = "validate" required = "required" />
 							<label for = "senha">Senha</label>
@@ -59,37 +52,12 @@
 						<button class = "btn-large waves-effect waves-light teal" type = "submit" name = "action">
 							Cadastrar usu&aacute;rio
 						</button>
-						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>						
-					</div>			
-				</form>				
-			</div>
-			
-			<div class = "row">
-				<table class = "striped">
-					<thead>
-						<tr>
-							<th>Nome</th>
-							<th>Email</th>
-							<th>Endere&ccedil;o</th>
-							<th>Telefone</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="usuario : ${usuarios}">
-							<td th:text="${usuario.nome}"></td>
-							<td th:text="${usuario.email}"></td>
-							<td th:text="${usuario.endereco}"></td>
-							<td th:text = "${usuario.telefone}"></td>
-							<td><a th:href = "@{${'/usuario/perfil/'+usuario.id}}" class = "btn-flat waves-effect waves-teal" >Ver perfil</a></td>
-						</tr>
-						<tr th:if="${#lists.isEmpty(usuarios)}">
-							<td colspan = "4">Nenhum usu&aacute;rio cadastrado.</td>
-						</tr>
-					</tbody>
-				</table>
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+					</div>
+				</form>
 			</div>
 		</div>
 		<script src="/webjars/jquery/2.2.4/jquery.js"></script>
-		<script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>		
+		<script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>
 	</body>
 </html> 
