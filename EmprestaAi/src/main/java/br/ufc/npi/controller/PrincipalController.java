@@ -18,7 +18,7 @@ public class PrincipalController {
 	
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public String index(HttpSession session){		
-		return "index";
+		return "redirect:/usuario/home";
 	}
 	
 	@RequestMapping(path = {"", "/login"}, method = {RequestMethod.GET, RequestMethod.POST})

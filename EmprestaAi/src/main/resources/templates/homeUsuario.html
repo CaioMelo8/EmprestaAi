@@ -82,7 +82,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="objeto : ${usuario.objetos}">
+						<tr th:each="objeto : ${session.usuario.objetos}">
 							<td th:text="${objeto.nome}"> </td>
 							
 							<td th:if="${#strings.isEmpty(objeto.descricao)} == false" th:text="${objeto.descricao}"></td>
@@ -90,8 +90,8 @@
 							
 							<td><a th:href = "@{${'/objeto/removerObjeto/'+objeto.id}}" class = "btn-flat waves-effect waves-teal">Remover</a></td>							
 						</tr>
-						<tr th:if="${#lists.isEmpty(usuario.objetos)}">
-							<td colspan="3"> Nenhum objeto cadastrado.</td>
+						<tr th:if="${#lists.isEmpty(session.usuario.objetos)}">
+							<td colspan="3" class = "center"> Nenhum objeto cadastrado.</td>
 						</tr>
 					</tbody>
 				</table>

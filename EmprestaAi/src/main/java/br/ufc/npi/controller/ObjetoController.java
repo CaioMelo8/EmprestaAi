@@ -30,20 +30,17 @@ public class ObjetoController {
 		
 		Usuario usuarioAutenticado = (Usuario) session.getAttribute("usuario");
 		
-		Usuario usuario = usuarioService.buscarUsuario(usuarioAutenticado.getId());
 		
-		if (usuario.getObjetos().size() == 10){
+		if (usuarioAutenticado.getObjetos().size() == 10){
 			String erro = "O usuário já atingiu o limite de objetos.";
 			model.addObject("erro", erro);
 		}
 		else{			
-			objeto.setUsuarioDono(usuario);
-			usuario.getObjetos().add(objeto);
+			objeto.setUsuarioDono(usuarioAutenticado);
+			usuarioAutenticado.getObjetos().add(objeto);
 			
 			objetoService.salvarObjeto(objeto);
-			usuarioService.salvarUsuario(usuario);
-			
-			session.setAttribute("usuario", usuario);
+			usuarioService.salvarUsuario(usuarioAutenticado);
 		}
 		
 		return model;

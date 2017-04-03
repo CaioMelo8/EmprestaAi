@@ -40,11 +40,9 @@ public class EmprestimoController {
 		session.setAttribute("usuario", usuario);
 		
 		List<Usuario> emprestantes = usuarioService.buscarTodosUsuariosExceto(usuario.getId());	
-		List<Emprestimo> emprestimos = emprestimoService.buscarEmprestimosPorEmprestador(usuario);
 		
 		model.addObject("usuario", usuario);
-		model.addObject("emprestantes", emprestantes);
-		model.addObject("emprestimos", emprestimos);
+		model.addObject("emprestantes", emprestantes);		
 		
 		return model;
 	}

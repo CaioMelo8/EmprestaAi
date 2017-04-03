@@ -48,11 +48,18 @@
 							<label for = "confirmacaoSenha">Confirma&ccedil;&atilde;o de senha</label>
 						</div>
 					</div>
-					<div class = "row center">
-						<button class = "btn-large waves-effect waves-light teal" type = "submit" name = "action">
-							Cadastrar usu&aacute;rio
-						</button>
-						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+					<div class = "row">
+						<div class = "center">
+							<div class = "row">
+								<button class = "btn-large waves-effect waves-light teal" type = "submit" name = "action">
+									Cadastrar-se
+								</button>
+								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+							</div>
+							<div class = "row">
+								<span>Já possui uma conta? <a th:href = "@{/login}">Entre</a>!</span>
+							</div>														
+						</div>
 					</div>
 				</form>
 			</div>

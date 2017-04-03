@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.Email;
@@ -27,8 +28,16 @@ public class Usuario {
 	private String role;
 	
 	private boolean ativo;
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "emprestador")
+	private List<Emprestimo> emprestimosEmprestador;
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "emprestante")
+	private List<Emprestimo> emprestimosEmprestante;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<Objeto> objetos;
 
 	public Integer getId() {
@@ -101,5 +110,21 @@ public class Usuario {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
-	}	
+	}
+
+	public List<Emprestimo> getEmprestimosEmprestador() {
+		return emprestimosEmprestador;
+	}
+
+	public void setEmprestimosEmprestador(List<Emprestimo> emprestimosEmprestador) {
+		this.emprestimosEmprestador = emprestimosEmprestador;
+	}
+
+	public List<Emprestimo> getEmprestimosEmprestante() {
+		return emprestimosEmprestante;
+	}
+
+	public void setEmprestimosEmprestante(List<Emprestimo> emprestimosEmprestante) {
+		this.emprestimosEmprestante = emprestimosEmprestante;
+	}
 }

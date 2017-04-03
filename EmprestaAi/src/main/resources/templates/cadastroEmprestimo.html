@@ -41,7 +41,7 @@
 								<label for = "objeto" class = "active">Objeto a ser emprestado</label>
 								<select id = "objeto" name = "objeto" class = "browser-default" required="required" >
 									<option value = "" disabled="disabled" selected="selected">Escolha um objeto</option>
-									<option th:each="objeto : ${usuario.objetos}" th:unless = "${objeto.emprestimo}" th:value = "${objeto.id}" th:text = "${objeto.nome}" ></option>
+									<option th:each="objeto : ${session.usuario.objetos}" th:unless = "${objeto.emprestimo}" th:value = "${objeto.id}" th:text = "${objeto.nome}" ></option>
 								</select>
 							</div>
 							<div class = "col s6">	
@@ -73,36 +73,72 @@
 					</div>
 				</form>
 			</div>
-			<div class = "row center">
-				<h4 class = "header">Empr&eacute;stimos</h4>
-			</div>		
 			<div class = "row">
-				<table class = "striped">
-					<thead>
-						<tr>
-							<th>Emprestado para</th>
-							<th>Telefone</th>
-							<th>Objeto</th>
-							<th>Data de Emp&eacute;stimo</th>
-							<th>Data de Devolu&ccedil;&atilde;o</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="emprestimo : ${emprestimos}">
-							<td th:text = "${emprestimo.emprestante.nome}"></td>
-							<td th:text = "${emprestimo.emprestante.telefone}"> </td>
-							<td th:text = "${emprestimo.objeto.nome}"></td>
-							<td th:text = "${#dates.format(emprestimo.dataEmprestimo, 'dd/MM/yyyy')}"></td>
-							<td th:text = "${#dates.format(emprestimo.dataDevolucao, 'dd/MM/yyyy')}"></td>
-							<td><a th:href = "@{${'/emprestimo/confirmarDevolucao/'+emprestimo.id}}" class = "btn-flat waves-effect waves-teal">Confirmar devolu&ccedil;&atilde;o</a></td>
-						</tr>
-						<tr th:if="${#lists.isEmpty(emprestimos)}">
-							<td colspan = "6">Nenhum empr&eacute;stimo realizado.</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class = "col s12">
+					<div class = "row center">
+						<h4 class = "header">Voc&ecirc; emprestou</h4>
+					</div>		
+					<div class = "row">
+						<table class = "striped">
+							<thead>
+								<tr>
+									<th>Emprestado para</th>
+									<th>Telefone</th>
+									<th>Objeto</th>
+									<th>Data de Emp&eacute;stimo</th>
+									<th>Data de Devolu&ccedil;&atilde;o</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="emprestimo : ${session.usuario.emprestimosEmprestador}">
+									<td th:text = "${emprestimo.emprestante.nome}"></td>
+									<td th:text = "${emprestimo.emprestante.telefone}"> </td>
+									<td th:text = "${emprestimo.objeto.nome}"></td>
+									<td th:text = "${#dates.format(emprestimo.dataEmprestimo, 'dd/MM/yyyy')}"></td>
+									<td th:text = "${#dates.format(emprestimo.dataDevolucao, 'dd/MM/yyyy')}"></td>
+									<td><a th:href = "@{${'/emprestimo/confirmarDevolucao/'+emprestimo.id}}" class = "btn-flat waves-effect waves-teal">Confirmar devolu&ccedil;&atilde;o</a></td>
+								</tr>
+								<tr th:if="${#lists.isEmpty(session.usuario.emprestimosEmprestador)}">
+									<td colspan = "6" class = "center">Nenhum empr&eacute;stimo cadastrado.</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>				
 			</div>
+			<div class = "row">
+				<div class = "col s12">
+					<div class = "row center">
+						<h4 class = "header">Emprestaram a voc&ecirc;</h4>
+					</div>		
+					<div class = "row">
+						<table class = "striped">
+							<thead>
+								<tr>
+									<th>Emprestado por</th>
+									<th>Telefone</th>
+									<th>Objeto</th>
+									<th>Data de Emp&eacute;stimo</th>
+									<th>Data de Devolu&ccedil;&atilde;o</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="emprestimo : ${session.usuario.emprestimosEmprestante}">
+									<td th:text = "${emprestimo.emprestador.nome}"></td>
+									<td th:text = "${emprestimo.emprestador.telefone}"> </td>
+									<td th:text = "${emprestimo.objeto.nome}"></td>
+									<td th:text = "${#dates.format(emprestimo.dataEmprestimo, 'dd/MM/yyyy')}"></td>
+									<td th:text = "${#dates.format(emprestimo.dataDevolucao, 'dd/MM/yyyy')}"></td>
+								</tr>
+								<tr th:if="${#lists.isEmpty(session.usuario.emprestimosEmprestante)}">
+									<td colspan = "6" class = "center">Nenhum empr&eacute;stimo cadastrado.</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>			
 		</div>
 		
 		<script src="/webjars/jquery/2.2.4/jquery.js"></script>
