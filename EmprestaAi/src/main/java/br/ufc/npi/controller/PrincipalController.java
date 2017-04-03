@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.ufc.npi.beans.Usuario;
 import br.ufc.npi.service.UsuarioService;
-
 @Controller
 public class PrincipalController {
 	
@@ -17,7 +16,7 @@ public class PrincipalController {
 	private UsuarioService usuarioService;
 	
 	@RequestMapping(path = "/", method = RequestMethod.GET)
-	public String index(HttpSession session){		
+	public String index(HttpSession session){
 		return "redirect:/usuario/home";
 	}
 	
@@ -27,7 +26,7 @@ public class PrincipalController {
 	}
 	
 	@RequestMapping(path = {"/cadastro"}, method = {RequestMethod.GET})
-	public String codastro(){
+	public String cadastro(){
 		return "cadastroUsuario";
 	}
 	

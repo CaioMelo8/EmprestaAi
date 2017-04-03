@@ -17,6 +17,9 @@ import br.ufc.npi.beans.Usuario;
 import br.ufc.npi.service.EmprestimoService;
 import br.ufc.npi.service.ObjetoService;
 import br.ufc.npi.service.UsuarioService;
+import br.ufc.quixada.npi.model.Email;
+import br.ufc.quixada.npi.model.Email.EmailBuilder;
+import br.ufc.quixada.npi.service.SendEmailService;
 
 @Controller
 @RequestMapping(path = "/emprestimo")
@@ -30,6 +33,9 @@ public class EmprestimoController {
 	
 	@Autowired
 	private ObjetoService objetoService;
+	
+	@Autowired
+	private SendEmailService emailService;
 	
 	@RequestMapping(path = {"", "/"}, method = RequestMethod.GET)
 	public ModelAndView realizarEmprestimo(HttpSession session){
@@ -55,11 +61,13 @@ public class EmprestimoController {
 		
 		Objeto objeto = emprestimo.getObjeto();
 		objeto.setEmprestimo(emprestimo);
-			
+		
 		emprestimo.setEmprestador(usuarioEmprestador);
 		
 		emprestimoService.salvarEmprestimo(emprestimo);
 		objetoService.salvarObjeto(objeto);
+		
+		this.enviarEmailCadastroEmprestimo(emprestimo);
 		
 		session.setAttribute("usuario", usuarioEmprestador);
 		
@@ -77,6 +85,54 @@ public class EmprestimoController {
 		objetoService.salvarObjeto(objeto);
 		emprestimoService.removerEmprestimo(emprestimo);
 		
+		this.enviarEmailConfirmacaoDevolucao(emprestimo);
+		
 		return "redirect:/emprestimo/";
+	}
+	
+	public void enviarEmailCadastroEmprestimo(Emprestimo emprestimo){
+		Usuario remetente = emprestimo.getEmprestador();
+		Usuario destinatario = emprestimo.getEmprestante();
+		Objeto objeto = emprestimo.getObjeto();
+		
+		String corpoEmail = "Olá, " + destinatario.getNome() + "\n\n"
+				+ "Um objeto foi emprestado para você!\n\n"
+				+ "Detalhes\n\n"
+				+ "Nome do usuário: " + remetente.getNome() + "\n"
+				+ "Email: " + remetente.getEmail() + "\n"
+				+ "Telefone: " + remetente.getTelefone() + "\n\n"
+				+ "Objeto\n"
+				+ objeto.getNome() + "\n" 
+				+ "Descrição: " + objeto.getDescricao() + "\n\n"
+				+ "Data de empréstimo: " + emprestimo.getDataEmprestimo() + "\n"
+				+ "Data de devolução: " + emprestimo.getDataDevolucao() + "\n\n"
+				+ "Email enviado automatiamente. Não responda a este email.\n\n"
+				+ "EmprestaAi";
+		
+		EmailBuilder emailBuilder = new EmailBuilder(remetente.getNome(), remetente.getEmail(), "EmprestaAi - Novo empréstimo cadastrado", destinatario.getEmail(), corpoEmail);
+		Email email = new Email(emailBuilder);
+		
+		emailService.sendEmail(email);
+	}
+	
+	public void enviarEmailConfirmacaoDevolucao(Emprestimo emprestimo){
+		Usuario remetente = emprestimo.getEmprestador();
+		Usuario destinatario = emprestimo.getEmprestante();
+		Objeto objeto = emprestimo.getObjeto();
+		
+		String corpoEmail = "Olá, " + destinatario.getNome() + "\n\n"
+				+ "O objeto que lhe foi emprestado foi devolvido com sucesso!\n\n"
+				+ "Detalhes\n\n"
+				+ "Nome do usuário: " + remetente.getNome() + "\n"
+				+ "Objeto\n"
+				+ objeto.getNome() + "\n" 
+				+ "Descrição: " + objeto.getDescricao() + "\n\n"
+				+ "Email enviado automaticamente. Não responda a este email.\n\n"
+				+ "Atenciosamente,\nEmprestaAi";
+		
+		EmailBuilder emailBuilder = new EmailBuilder(remetente.getNome(), remetente.getEmail(), "EmprestaAi - Devolução confirmada com sucesso", destinatario.getEmail(), corpoEmail);
+		Email email = new Email(emailBuilder);
+		
+		emailService.sendEmail(email);
 	}
 }

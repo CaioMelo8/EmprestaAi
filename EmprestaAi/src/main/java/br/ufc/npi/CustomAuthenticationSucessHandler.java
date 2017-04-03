@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.Authentication;
@@ -22,8 +20,6 @@ import br.ufc.npi.service.UsuarioService;
 @Component
 @ComponentScan(value = {"br.ufc.npi.service", "br.ufc.npi.beans"})
 public class CustomAuthenticationSucessHandler implements AuthenticationSuccessHandler {
-	
-	private static Logger logger = LoggerFactory.getLogger(CustomAuthenticationSucessHandler.class);
 	
 	@Autowired
 	private UsuarioService usuarioService;
@@ -39,13 +35,8 @@ public class CustomAuthenticationSucessHandler implements AuthenticationSuccessH
 				
 		Usuario usuarioAutenticado = usuarioService.buscarUsuarioPorNome(nome);
 		
-		if (usuarioAutenticado != null){
+		if (usuarioAutenticado != null)
 			session.setAttribute("usuario", usuarioAutenticado);
-			logger.info(usuarioAutenticado.getNome() + " se auteticou!");
-		}
-		else{
-			logger.error("Erro ao autenticar usuario.");
-		}
 		
 		response.sendRedirect("/usuario/home/");
 		return;
