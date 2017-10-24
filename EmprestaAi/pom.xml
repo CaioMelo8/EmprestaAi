@@ -93,6 +93,50 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>keytool-maven-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>genkeypair</id>
+						<goals>
+							<goal>generateKeyPair</goal>
+						</goals>
+						<phase>package</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<alias>caio-melo</alias>
+					<keystore>${project.basedir}/target/keystore/.keystore</keystore>
+					<storepass>123456</storepass>
+					<keypass>123456</keypass>
+					<dname>
+						cn=www.caio.emprestaai.com,
+						ou=Caio Melo,
+						L=Quixada,
+						ST=Ceara,
+						o=EmprestaAiOrg,
+						c=BR
+					</dname>
+					<sigalg>SHA1withDSA</sigalg>
+					<keyalg>DSA</keyalg>
+					<keysize>1024</keysize>
+					<verbose>true</verbose>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jarsigner-plugin</artifactId>
+				<version>1.4</version>
+				<configuration>
+					<alias>caio-melo</alias>
+					<keystore>${project.basedir}\target\keystore\.keystore</keystore>
+					<storepass>123456</storepass>
+					<keypass>123456</keypass>
+					<keyalg>DSAwithSHA1</keyalg>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
