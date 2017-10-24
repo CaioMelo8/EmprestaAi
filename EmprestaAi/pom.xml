@@ -129,6 +129,22 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jarsigner-plugin</artifactId>
 				<version>1.4</version>
+				<executions>
+					<execution>
+						<id>verify</id>
+						<goals>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>sign</id>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+						<phase>package</phase>
+					</execution>
+					
+				</executions>
 				<configuration>
 					<alias>caio-melo</alias>
 					<keystore>${project.basedir}\target\keystore\.keystore</keystore>
