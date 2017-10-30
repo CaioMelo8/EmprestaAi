@@ -88,6 +88,15 @@
 	</dependencies>
 
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<version>3.8</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -153,8 +162,27 @@
 					<keyalg>DSAwithSHA1</keyalg>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 
-
+	<reporting>
+		<plugins>
+			<!-- Plugin de relatório do PMD -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.8</version>
+			</plugin>
+			<!-- Plugin XRef para geração do relatório do PMD -->
+			<plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-jxr-plugin</artifactId>
+	            <version>2.5</version>
+	        </plugin>
+		</plugins>
+	</reporting>
 </project>
