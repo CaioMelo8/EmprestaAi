@@ -24,14 +24,14 @@
 		<java.version>1.8</java.version>
 		
 		<!-- NPI Mail Version -->
-  	<npi.mail.version>1.0.0</npi.mail.version>
+  		<npi.mail.version>1.0.0</npi.mail.version>
 	</properties>
 	
 	<repositories>
-	  <repository>
-	    <id>npi-mvn-repo</id>
-	    <url>http://npi-ufc-qxd.github.io/npi-mvn-repo/</url>
-	  </repository>
+	  	<repository>
+	    	<id>npi-mvn-repo</id>
+	    	<url>http://npi-ufc-qxd.github.io/npi-mvn-repo/</url>
+	  	</repository>
 	</repositories>
 
 	<dependencies>
@@ -95,6 +95,16 @@
 					<artifactId>maven-pmd-plugin</artifactId>
 					<version>3.8</version>
 				</plugin>
+				<plugin>
+		          <groupId>org.apache.maven.plugins</groupId>
+		          <artifactId>maven-project-info-reports-plugin</artifactId>
+		          <version>2.9</version>
+		        </plugin>
+		        <plugin>
+		          <groupId>org.codehaus.mojo</groupId>
+		          <artifactId>findbugs-maven-plugin</artifactId>
+		          <version>3.0.5</version>
+		        </plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -166,11 +176,24 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
 			</plugin>
+			<plugin>
+	          <groupId>org.apache.maven.plugins</groupId>
+	          <artifactId>maven-project-info-reports-plugin</artifactId>
+	        </plugin>
+	        <plugin>
+	          <groupId>org.codehaus.mojo</groupId>
+	          <artifactId>findbugs-maven-plugin</artifactId>
+	        </plugin>
 		</plugins>
 	</build>
 
 	<reporting>
 		<plugins>
+			<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-project-info-reports-plugin</artifactId>
+		        <version>2.9</version>
+		      </plugin>
 			<!-- Plugin de relatório do PMD -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -183,6 +206,14 @@
 	            <artifactId>maven-jxr-plugin</artifactId>
 	            <version>2.5</version>
 	        </plugin>
+	       	<plugin>
+	       		<groupId>org.codehaus.mojo</groupId>
+	       		<artifactId>findbugs-maven-plugin</artifactId>
+	       		<version>3.0.5</version>
+	       		<configuration>
+	       			<xmlOutput>true</xmlOutput>
+	       		</configuration>
+	       	</plugin>
 		</plugins>
 	</reporting>
 </project>
