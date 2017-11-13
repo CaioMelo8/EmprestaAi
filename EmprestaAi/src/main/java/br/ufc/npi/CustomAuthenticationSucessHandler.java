@@ -39,7 +39,6 @@ public class CustomAuthenticationSucessHandler implements AuthenticationSuccessH
 			session.setAttribute("usuario", usuarioAutenticado);
 		
 		response.sendRedirect("/usuario/home/");
-		return;
 	}
 
 }

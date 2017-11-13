@@ -18,13 +18,17 @@
 		<relativePath/> <!-- lookup parent from repository -->			
 	</parent>
 
-	<properties>
+	<properties>	
+		<project.static-analysis.dir>${project.basedir}/src/main/resources/static-analysis</project.static-analysis.dir>
+	
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		
 		<!-- NPI Mail Version -->
   		<npi.mail.version>1.0.0</npi.mail.version>
+  		
+  		<dependency.locations.enabled>false</dependency.locations.enabled>
 	</properties>
 	
 	<repositories>
@@ -67,13 +71,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.webjars/materializecss -->
 		<dependency>
 		    <groupId>org.webjars</groupId>
 		    <artifactId>materializecss</artifactId>
 		    <version>0.97.7</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
 		<dependency>
 		    <groupId>org.webjars</groupId>
 		    <artifactId>jquery</artifactId>
@@ -84,9 +86,8 @@
 			<groupId>br.ufc.quixada.npi</groupId>
 			<artifactId>npi-mail</artifactId>
 			<version>${npi.mail.version}</version>
-		</dependency>	
+		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -143,7 +144,6 @@
 						</goals>
 						<phase>package</phase>
 					</execution>
-					
 				</executions>
 				<configuration>
 					<alias>caio-melo</alias>
@@ -154,15 +154,21 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.8</version>
-			</plugin>
-			<plugin>
 	          <groupId>org.apache.maven.plugins</groupId>
 	          <artifactId>maven-project-info-reports-plugin</artifactId>
 	          <version>2.9</version>
 	        </plugin>
+	        <!-- Plugin de relatório do PMD -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.8</version>
+ 				<configuration>
+					<rulesets>
+						<ruleset>${project.static-analysis.dir}/rulesets/pmd/custom-rules.xml</ruleset>
+					</rulesets>
+				</configuration>
+			</plugin>
 	        <plugin>
 	          <groupId>org.codehaus.mojo</groupId>
 	          <artifactId>findbugs-maven-plugin</artifactId>
@@ -179,15 +185,9 @@
 	<reporting>
 		<plugins>
 			<plugin>
-		        <groupId>org.apache.maven.plugins</groupId>
+	    	    <groupId>org.apache.maven.plugins</groupId>
 		        <artifactId>maven-project-info-reports-plugin</artifactId>
 		        <version>2.9</version>
-		      </plugin>
-			<!-- Plugin de relatório do PMD -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.8</version>
 			</plugin>
 			<!-- Plugin XRef para geração do relatório do PMD -->
 			<plugin>
