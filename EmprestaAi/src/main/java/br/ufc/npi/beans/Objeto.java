@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Objeto {
+public class Objeto{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

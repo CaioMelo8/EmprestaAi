@@ -19,7 +19,8 @@
 	</parent>
 
 	<properties>	
-		<project.static-analysis.dir>${project.basedir}/src/main/resources/static-analysis</project.static-analysis.dir>
+		<project.rulesets.directory>${project.basedir}/src/main/resources/static-analysis/rulesets</project.rulesets.directory>
+		<project.build.static-analysis.directory>${project.build.directory}/static-analysis</project.build.static-analysis.directory>
 	
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -165,19 +166,35 @@
 				<version>3.8</version>
  				<configuration>
 					<rulesets>
-						<ruleset>${project.static-analysis.dir}/rulesets/pmd/custom-rules.xml</ruleset>
+						<ruleset>${project.rulesets.directory}/pmd/rules-pmd.xml</ruleset>
 					</rulesets>
+					
+					<targetDirectory>${project.build.static-analysis.directory}/pmd</targetDirectory>
 				</configuration>
 			</plugin>
 	        <plugin>
 	          <groupId>org.codehaus.mojo</groupId>
 	          <artifactId>findbugs-maven-plugin</artifactId>
 	          <version>3.0.5</version>
+	          <configuration>
+	          	<excludeFilterFile>${project.rulesets.directory}/findbugs/rules-findbugs.xml</excludeFilterFile>
+	          	
+	          	<xmlOutput>true</xmlOutput>
+	       		<xmlOutputDirectory>${project.build.static-analysis.directory}/findbugs</xmlOutputDirectory>
+	       		<findbugsXmlOutputDirectory>${project.build.static-analysis.directory}/findbugs</findbugsXmlOutputDirectory>
+	          </configuration>
 	        </plugin>
 	        <plugin>
 	        	<groupId>org.apache.maven.plugins</groupId>
 	        	<artifactId>maven-checkstyle-plugin</artifactId>
 	        	<version>2.17</version>
+	        	<configuration>
+	        		<configLocation>${project.rulesets.directory}/checkstyle/rules-checkstyle.xml</configLocation>
+	        		
+	        		<outputFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-result.xml</outputFile>
+	        		<cacheFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-cachefile</cacheFile>
+	        		<rulesFiles>${project.build.static-analysis.directory}/checkstyle/checkstyle-rules.xml</rulesFiles>
+        		</configuration>
 	        </plugin>
 		</plugins>
 	</build>
@@ -195,18 +212,41 @@
 	            <artifactId>maven-jxr-plugin</artifactId>
 	            <version>2.5</version>
 	        </plugin>
+	        <!-- Plugin de relatório do PMD -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.8</version>
+ 				<configuration>
+					<rulesets>
+						<ruleset>${project.static-analysis.dir}/rulesets/pmd/rules-pmd.xml</ruleset>
+					</rulesets>
+					<targetDirectory>${project.build.static-analysis.directory}/pmd</targetDirectory>
+				</configuration>
+			</plugin>
 	       	<plugin>
 	       		<groupId>org.codehaus.mojo</groupId>
 	       		<artifactId>findbugs-maven-plugin</artifactId>
 	       		<version>3.0.5</version>
 	       		<configuration>
-	       			<xmlOutput>true</xmlOutput>
+	       			<excludeFilterFile>${project.rulesets.directory}/findbugs/rules-findbugs.xml</excludeFilterFile>
+	          	
+	          	<xmlOutput>true</xmlOutput>
+	       		<xmlOutputDirectory>${project.build.static-analysis.directory}/findbugs</xmlOutputDirectory>
+	       		<findbugsXmlOutputDirectory>${project.build.static-analysis.directory}/findbugs</findbugsXmlOutputDirectory>
 	       		</configuration>
 	       	</plugin>
 	       	<plugin>
 	        	<groupId>org.apache.maven.plugins</groupId>
 	        	<artifactId>maven-checkstyle-plugin</artifactId>
 	        	<version>2.17</version>
+	        	<configuration>
+	        		<configLocation>${project.rulesets.directory}/checkstyle/rules-checkstyle.xml</configLocation>
+	        		
+	        		<outputFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-result.xml</outputFile>
+	        		<cacheFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-cachefile</cacheFile>
+	        		<rulesFiles>${project.build.static-analysis.directory}/checkstyle/checkstyle-rules.xml</rulesFiles>
+	        	</configuration>
 	        </plugin>
 		</plugins>
 	</reporting>

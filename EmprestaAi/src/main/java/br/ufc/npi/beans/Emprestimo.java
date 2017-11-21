@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class Emprestimo {
+public class Emprestimo{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,0 +1,9 @@
+<FindBugsFilter>
+    <Match>
+        <Bug abbrev="EI" pattern="EI_EXPOSE_REP" type="EI_EXPOSE_REP" />        
+    </Match>
+
+    <Match>
+        <Bug abbrev="EI2" pattern="EI_EXPOSE_REP2" type="EI_EXPOSE_REP2" />
+    </Match>
+</FindBugsFilter>

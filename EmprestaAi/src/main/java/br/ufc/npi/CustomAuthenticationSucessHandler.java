@@ -35,8 +35,9 @@ public class CustomAuthenticationSucessHandler implements AuthenticationSuccessH
 				
 		Usuario usuarioAutenticado = usuarioService.buscarUsuarioPorNome(nome);
 		
-		if (usuarioAutenticado != null)
+		if (usuarioAutenticado != null){
 			session.setAttribute("usuario", usuarioAutenticado);
+		}
 		
 		response.sendRedirect("/usuario/home/");
 	}
