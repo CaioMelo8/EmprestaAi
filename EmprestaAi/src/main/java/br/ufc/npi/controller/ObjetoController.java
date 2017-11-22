@@ -1,9 +1,7 @@
 package br.ufc.npi.controller;
 
-import br.ufc.npi.beans.Objeto;
-import br.ufc.npi.beans.Usuario;
-import br.ufc.npi.service.ObjetoService;
-import br.ufc.npi.service.UsuarioService;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,56 +9,70 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
+import br.ufc.npi.beans.Objeto;
+import br.ufc.npi.beans.Usuario;
+import br.ufc.npi.service.ObjetoService;
+import br.ufc.npi.service.UsuarioService;
 
 @Controller
 @RequestMapping(path = "/objeto")
 public class ObjetoController {
 
-    @Autowired
-    private ObjetoService objetoService;
+	private static final String MSG_ERRO_REMOCAO = "erroRemocao";
 
-    @Autowired
-    private UsuarioService usuarioService;
+	private static final String MSG_ERRO = "erro";
 
-    @RequestMapping(path = "/cadastrarObjeto", method = RequestMethod.POST)
-    public ModelAndView cadastrarObjeto(Objeto objeto, HttpSession session) {
-        ModelAndView model = new ModelAndView("redirect:/usuario/home/");
+	private static final String MSG_ERRO_LIMITE_OBJETOS = "O usuário já atingiu o limite de objetos.";
 
-        Usuario usuarioAutenticado = (Usuario) session.getAttribute("usuario");
+	private static final String MSG_ERRO_OBJ_EMPRESTADO = "O objeto não pode ser removido, pois está emprestado no momento.";
 
+	private static final String USUARIO_REDIRECT_HOME = "redirect:/usuario/home/";
 
-        if (usuarioAutenticado.getObjetos().size() == 10) {
-            String erro = "O usuário já atingiu o limite de objetos.";
-            model.addObject("erro", erro);
-        } else {
-            objeto.setUsuarioDono(usuarioAutenticado);
-            usuarioAutenticado.getObjetos().add(objeto);
+	private static final int MAX_OBJETOS = 10;
 
-            objetoService.salvarObjeto(objeto);
-            usuarioService.salvarUsuario(usuarioAutenticado);
-        }
+	@Autowired
+	private ObjetoService objetoService;
 
-        return model;
-    }
+	@Autowired
+	private UsuarioService usuarioService;
 
-    @RequestMapping(path = "/removerObjeto/{idObjeto}", method = RequestMethod.GET)
-    public ModelAndView removerObjeto(@PathVariable("idObjeto") Integer idObjeto) {
-        Objeto objeto = objetoService.buscarObjeto(idObjeto);
-        Usuario usuario = objeto.getUsuarioDono();
+	@RequestMapping(path = "/cadastrarObjeto", method = RequestMethod.POST)
+	public ModelAndView cadastrarObjeto(Objeto objeto, HttpSession session) {
+		final ModelAndView model = new ModelAndView(USUARIO_REDIRECT_HOME);
 
-        ModelAndView model = new ModelAndView("redirect:/usuario/home/");
+		final Usuario usuarioAutenticado = (Usuario) session.getAttribute(UsuarioController.getCampoUsuario());
 
-        if (objeto.getEmprestimo() != null) {
-            String erro = "O objeto não pode ser removido, pois está emprestado no momento.";
-            model.addObject("erroRemocao", erro);
-        } else {
-            usuario.getObjetos().remove(objeto);
+		if (usuarioAutenticado.getObjetos().size() == MAX_OBJETOS) {
+			final String erro = MSG_ERRO_LIMITE_OBJETOS;
+			model.addObject(MSG_ERRO, erro);
+		} else {
+			objeto.setUsuarioDono(usuarioAutenticado);
+			usuarioAutenticado.getObjetos().add(objeto);
 
-            usuarioService.salvarUsuario(usuario);
-            objetoService.removerObjeto(objeto);
-        }
+			this.objetoService.salvarObjeto(objeto);
+			this.usuarioService.salvarUsuario(usuarioAutenticado);
+		}
 
-        return model;
-    }
+		return model;
+	}
+
+	@RequestMapping(path = "/removerObjeto/{idObjeto}", method = RequestMethod.GET)
+	public ModelAndView removerObjeto(@PathVariable("idObjeto") Integer idObjeto) {
+		final Objeto objeto = this.objetoService.buscarObjeto(idObjeto);
+		final Usuario usuario = objeto.getUsuarioDono();
+
+		final ModelAndView model = new ModelAndView(USUARIO_REDIRECT_HOME);
+
+		if (objeto.getEmprestimo() != null) {
+			final String erro = MSG_ERRO_OBJ_EMPRESTADO;
+			model.addObject(MSG_ERRO_REMOCAO, erro);
+		} else {
+			usuario.getObjetos().remove(objeto);
+
+			this.usuarioService.salvarUsuario(usuario);
+			this.objetoService.removerObjeto(objeto);
+		}
+
+		return model;
+	}
 }

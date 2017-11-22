@@ -1,67 +1,68 @@
 package br.ufc.npi.beans;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import java.io.Serializable;
 
 @Entity
 public class Objeto implements Serializable {
 
-    private static final long serialVersionUID = 2625741077184273545L;
+	private static final long serialVersionUID = 2625741077184273545L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    private String nome;
-    private String descricao;
+	private String nome;
+	private String descricao;
 
-    @OneToOne
-    private Usuario usuarioDono;
+	@OneToOne
+	private Usuario usuarioDono;
 
-    @OneToOne
-    private Emprestimo emprestimo;
+	@OneToOne
+	private Emprestimo emprestimo;
 
-    public Integer getId() {
-        return id;
-    }
+	public final Integer getId() {
+		return this.id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public final void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public final String getNome() {
+		return this.nome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public final void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public final String getDescricao() {
+		return this.descricao;
+	}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	public final void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-    public Usuario getUsuarioDono() {
-        return usuarioDono;
-    }
+	public final Usuario getUsuarioDono() {
+		return this.usuarioDono;
+	}
 
-    public void setUsuarioDono(Usuario usuarioDono) {
-        this.usuarioDono = usuarioDono;
-    }
+	public final void setUsuarioDono(Usuario usuarioDono) {
+		this.usuarioDono = usuarioDono;
+	}
 
-    public Emprestimo getEmprestimo() {
-        return emprestimo;
-    }
+	public final Emprestimo getEmprestimo() {
+		return this.emprestimo;
+	}
 
-    public void setEmprestimo(Emprestimo emprestimo) {
-        this.emprestimo = emprestimo;
-    }
+	public final void setEmprestimo(Emprestimo emprestimo) {
+		this.emprestimo = emprestimo;
+	}
 }

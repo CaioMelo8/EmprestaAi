@@ -15,28 +15,28 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.2.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->			
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
-	<properties>	
+	<properties>
 		<project.rulesets.directory>${project.basedir}/src/main/resources/static-analysis/rulesets</project.rulesets.directory>
 		<project.build.static-analysis.directory>${project.build.directory}/static-analysis</project.build.static-analysis.directory>
-	
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		
+
 		<!-- NPI Mail Version -->
-  		<npi.mail.version>1.0.0</npi.mail.version>
-  		
-  		<dependency.locations.enabled>false</dependency.locations.enabled>
+		<npi.mail.version>1.0.0</npi.mail.version>
+
+		<dependency.locations.enabled>false</dependency.locations.enabled>
 	</properties>
-	
+
 	<repositories>
-	  	<repository>
-	    	<id>npi-mvn-repo</id>
-	    	<url>http://npi-ufc-qxd.github.io/npi-mvn-repo/</url>
-	  	</repository>
+		<repository>
+			<id>npi-mvn-repo</id>
+			<url>http://npi-ufc-qxd.github.io/npi-mvn-repo/</url>
+		</repository>
 	</repositories>
 
 	<dependencies>
@@ -73,14 +73,14 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>materializecss</artifactId>
-		    <version>0.97.7</version>
+			<groupId>org.webjars</groupId>
+			<artifactId>materializecss</artifactId>
+			<version>0.97.7</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>jquery</artifactId>
-		    <version>2.2.4</version>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>2.2.4</version>
 		</dependency>
 		<!-- NPI Mail -->
 		<dependency>
@@ -154,99 +154,101 @@
 				</configuration>
 			</plugin>
 			<plugin>
-	          <groupId>org.apache.maven.plugins</groupId>
-	          <artifactId>maven-project-info-reports-plugin</artifactId>
-	          <version>2.9</version>
-	        </plugin>
-	        <!-- Plugin de relatório do PMD -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.9</version>
+			</plugin>
+			<!-- Plugin de relatório do PMD -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>3.8</version>
- 				<configuration>
+				<configuration>
 					<rulesets>
 						<ruleset>${project.rulesets.directory}/pmd/rules-pmd.xml</ruleset>
 					</rulesets>
-					
+
 					<targetDirectory>${project.build.static-analysis.directory}/pmd</targetDirectory>
 				</configuration>
 			</plugin>
-	        <plugin>
-	          <groupId>org.codehaus.mojo</groupId>
-	          <artifactId>findbugs-maven-plugin</artifactId>
-	          <version>3.0.5</version>
-	          <configuration>
-	          	<excludeFilterFile>${project.rulesets.directory}/findbugs/rules-findbugs.xml</excludeFilterFile>
-	          	
-	          	<xmlOutput>true</xmlOutput>
-	       		<xmlOutputDirectory>${project.build.static-analysis.directory}/findbugs</xmlOutputDirectory>
-	       		<findbugsXmlOutputDirectory>${project.build.static-analysis.directory}/findbugs</findbugsXmlOutputDirectory>
-	          </configuration>
-	        </plugin>
-	        <plugin>
-	        	<groupId>org.apache.maven.plugins</groupId>
-	        	<artifactId>maven-checkstyle-plugin</artifactId>
-	        	<version>2.17</version>
-	        	<configuration>
-	        		<configLocation>${project.rulesets.directory}/checkstyle/rules-checkstyle.xml</configLocation>
-	        		
-	        		<outputFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-result.xml</outputFile>
-	        		<cacheFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-cachefile</cacheFile>
-	        		<rulesFiles>${project.build.static-analysis.directory}/checkstyle/checkstyle-rules.xml</rulesFiles>
-        		</configuration>
-	        </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>3.0.5</version>
+				<configuration>
+					<excludeFilterFile>${project.rulesets.directory}/findbugs/rules-findbugs.xml</excludeFilterFile>
+
+					<xmlOutput>true</xmlOutput>
+					<xmlOutputDirectory>${project.build.static-analysis.directory}/findbugs</xmlOutputDirectory>
+					<findbugsXmlOutputDirectory>${project.build.static-analysis.directory}/findbugs</findbugsXmlOutputDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.17</version>
+				<configuration>
+					<configLocation>${project.rulesets.directory}/checkstyle/rules-checkstyle.xml</configLocation>
+					<suppressionsLocation>${project.rulesets.directory}/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
+					
+					<outputFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-result.xml</outputFile>
+					<cacheFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-cachefile</cacheFile>
+					<rulesFiles>${project.build.static-analysis.directory}/checkstyle/checkstyle-rules.xml</rulesFiles>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
 	<reporting>
 		<plugins>
 			<plugin>
-	    	    <groupId>org.apache.maven.plugins</groupId>
-		        <artifactId>maven-project-info-reports-plugin</artifactId>
-		        <version>2.9</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.9</version>
 			</plugin>
 			<!-- Plugin XRef para geração do relatório do PMD -->
 			<plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-jxr-plugin</artifactId>
-	            <version>2.5</version>
-	        </plugin>
-	        <!-- Plugin de relatório do PMD -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.5</version>
+			</plugin>
+			<!-- Plugin de relatório do PMD -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>3.8</version>
- 				<configuration>
+				<configuration>
 					<rulesets>
-						<ruleset>${project.build.static-analysis.directory}/rulesets/pmd/rules-pmd.xml</ruleset>
+						<ruleset>${project.rulesets.directory}/pmd/rules-pmd.xml</ruleset>
 					</rulesets>
+
 					<targetDirectory>${project.build.static-analysis.directory}/pmd</targetDirectory>
 				</configuration>
 			</plugin>
-	       	<plugin>
-	       		<groupId>org.codehaus.mojo</groupId>
-	       		<artifactId>findbugs-maven-plugin</artifactId>
-	       		<version>3.0.5</version>
-	       		<configuration>
-	       			<excludeFilterFile>${project.rulesets.directory}/findbugs/rules-findbugs.xml</excludeFilterFile>
-	          	
-	          	<xmlOutput>true</xmlOutput>
-	       		<xmlOutputDirectory>${project.build.static-analysis.directory}/findbugs</xmlOutputDirectory>
-	       		<findbugsXmlOutputDirectory>${project.build.static-analysis.directory}/findbugs</findbugsXmlOutputDirectory>
-	       		</configuration>
-	       	</plugin>
-	       	<plugin>
-	        	<groupId>org.apache.maven.plugins</groupId>
-	        	<artifactId>maven-checkstyle-plugin</artifactId>
-	        	<version>2.17</version>
-	        	<configuration>
-	        		<configLocation>${project.rulesets.directory}/checkstyle/rules-checkstyle.xml</configLocation>
-	        		
-	        		<outputFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-result.xml</outputFile>
-	        		<cacheFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-cachefile</cacheFile>
-	        		<rulesFiles>${project.build.static-analysis.directory}/checkstyle/checkstyle-rules.xml</rulesFiles>
-	        	</configuration>
-	        </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>3.0.5</version>
+				<configuration>
+					<excludeFilterFile>${project.rulesets.directory}/findbugs/rules-findbugs.xml</excludeFilterFile>
+
+					<xmlOutput>true</xmlOutput>
+					<xmlOutputDirectory>${project.build.static-analysis.directory}/findbugs</xmlOutputDirectory>
+					<findbugsXmlOutputDirectory>${project.build.static-analysis.directory}/findbugs</findbugsXmlOutputDirectory>				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.17</version>
+				<configuration>
+					<configLocation>${project.rulesets.directory}/checkstyle/rules-checkstyle.xml</configLocation>
+					<suppressionsLocation>${project.rulesets.directory}/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
+					
+					<outputFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-result.xml</outputFile>
+					<cacheFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-cachefile</cacheFile>
+					<rulesFiles>${project.build.static-analysis.directory}/checkstyle/checkstyle-rules.xml</rulesFiles>
+				</configuration>
+			</plugin>
 		</plugins>
 	</reporting>
 </project>

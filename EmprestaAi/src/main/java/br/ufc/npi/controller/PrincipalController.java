@@ -1,42 +1,49 @@
 package br.ufc.npi.controller;
 
-import br.ufc.npi.beans.Usuario;
-import br.ufc.npi.service.UsuarioService;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpSession;
+import br.ufc.npi.beans.Usuario;
+import br.ufc.npi.service.UsuarioService;
 
 @Controller
 public class PrincipalController {
 
-    @Autowired
-    private UsuarioService usuarioService;
+	private static final String LOGIN_REDIRECT = "redirect:/login";
+	private static final String ROLE_USUARIO = "ROLE_USUARIO";
+	private static final String CADASTRO_USUARIO = "cadastroUsuario";
+	private static final String LOGIN = "login";
+	private static final String USUARIO_HOME_REDIRECT = "redirect:/usuario/home";
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String index(HttpSession session) {
-        return "redirect:/usuario/home";
-    }
+	@Autowired
+	private UsuarioService usuarioService;
 
-    @RequestMapping(path = {"", "/login"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String login() {
-        return "login";
-    }
+	@RequestMapping(path = "/", method = RequestMethod.GET)
+	public String index(HttpSession session) {
+		return USUARIO_HOME_REDIRECT;
+	}
 
-    @RequestMapping(path = {"/cadastro"}, method = {RequestMethod.GET})
-    public String cadastro() {
-        return "cadastroUsuario";
-    }
+	@RequestMapping(path = { "", "/login" }, method = { RequestMethod.GET, RequestMethod.POST })
+	public String login() {
+		return LOGIN;
+	}
 
-    @RequestMapping(path = "/salvarCadastro", method = RequestMethod.POST)
-    public String salvarUsuario(Usuario usuario) {
-        usuario.setRole("ROLE_USUARIO");
-        usuario.setAtivo(true);
+	@RequestMapping(path = { "/cadastro" }, method = { RequestMethod.GET })
+	public String cadastro() {
+		return CADASTRO_USUARIO;
+	}
 
-        usuarioService.salvarUsuario(usuario);
+	@RequestMapping(path = "/salvarCadastro", method = RequestMethod.POST)
+	public String salvarUsuario(Usuario usuario) {
+		usuario.setRole(ROLE_USUARIO);
+		usuario.setAtivo(true);
 
-        return "redirect:/login";
-    }
+		this.usuarioService.salvarUsuario(usuario);
+
+		return LOGIN_REDIRECT;
+	}
 }

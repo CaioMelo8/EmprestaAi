@@ -4,53 +4,197 @@
     "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
-    <property name="charset" value="UTF-8"/>
-    <property name="severity" value="error"/>
+	<property name="charset" value="UTF-8" />
+	<property name="severity" value="error" />
 
-    <module name="FileTabCharacter">
-        <property name="eachLine" value="true"/>
-        <property name="severity" value="info"/>
-    </module>
+	<module name="SuppressionFilter">
+		<property name="file" value="${checkstyle.suppressions.file}" />
+	</module>
 
-    <!-- Trailing spaces -->
-    <module name="RegexpSingleline">
-        <property name="format" value="\s+$"/>
-        <property name="message" value="Line has trailing spaces."/>
-    </module>
+	<module name="TreeWalker">
+		<!-- Naming conventions checks -->
+		<module name="AbbreviationAsWordInName" />
+		<module name="AbstractClassName" />
+		<module name="ClassTypeParameterName" />
+		<module name="ConstantName" />
+		<module name="InterfaceTypeParameterName" />
+		<module name="LocalFinalVariableName" />
+		<module name="LocalVariableName" />
+		<module name="MemberName" />
+		<module name="MethodName" />
+		<module name="MethodTypeParameterName" />
+		<module name="PackageName" />
+		<module name="ParameterName" />
+		<module name="StaticVariableName" />
+		<module name="TypeName" />
 
-    <module name="TreeWalker">
-        <!-- Imports -->
+		<!-- Annotations checks -->
+		<module name="AnnotationLocation" />
+		<module name="AnnotationUseStyle" />
+		<module name="MissingDeprecated" />
+		<module name="MissingOverride" />
+		<module name="PackageAnnotation" />
+		<module name="SuppressWarnings" />
 
-        <module name="RedundantImport">
-            <property name="severity" value="error"/>
-        </module>
+		<!-- Block checks -->
+		<module name="AvoidNestedBlocks" />
+		<module name="EmptyBlock" />
+		<module name="EmptyCatchBlock" />
+		<module name="LeftCurly" />
+		<module name="RightCurly" />
+		<module name="NeedBraces">
+			<property name="allowSingleLineStatement" value="true" />
+		</module>
 
-        <module name="AvoidStarImport">
-            <property name="severity" value="error"/>
-        </module>
+		<!-- Class Design checks -->
+		<module name="DesignForExtension" />
+		<module name="FinalClass" />
+		<module name="HideUtilityClassConstructor" />
+		<module name="InnerTypeLast" />
+		<module name="InterfaceIsType" />
+		<module name="OneTopLevelClass" />
+		<module name="ThrowsCount">
+			<property name="max" value="3" />
+		</module>
+		<module name="VisibilityModifier">
+			<property name="protectedAllowed" value="true" />
+		</module>
 
-        <!-- General Code Style -->
-        <module name="EmptyBlock">
-            <property name="option" value="TEXT"/>
-            <property name="tokens"
-                      value="LITERAL_TRY, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_SWITCH"/>
-        </module>
+		<!-- Coding checks -->
+		<module name="ArrayTrailingComma" />
+		<module name="AvoidInlineConditionals" />
+		<module name="CovariantEquals" />
+		<module name="DeclarationOrder" />
+		<module name="DefaultComesLast" />
+		<module name="EmptyStatement" />
+		<module name="EqualsAvoidNull" />
+		<module name="EqualsHashCode" />
+		<module name="ExplicitInitialization" />
+		<module name="FallThrough" />
+		<module name="FinalLocalVariable" />
+		<module name="HiddenField">
+			<property name="ignoreConstructorParameter" value="true" />
+			<property name="ignoreSetter" value="true" />
+			<property name="setterCanReturnItsClass" value="true" />
+		</module>
+		<module name="IllegalCatch" />
+		<module name="IllegalInstantiation">
+			<property name="classes"
+				value="br.ufc.npi.service.*,br.ufc.npi.repositorio.*,br.ufc.npi.controller.*,br.ufc.npi.config.*" />
+		</module>
+		<module name="IllegalThrows" />
+		<module name="IllegalToken">
+			<property name="tokens" value="LABELED_STAT" />
+			<property name="tokens" value="LITERAL_NATIVE" />
+			<property name="tokens" value="LITERAL_VOLATILE" />
+			<property name="tokens" value="LITERAL_ASSERT" />
+		</module>
+		<module name="IllegalTokenText">
+			<property name="tokens" value="STRING_LITERAL" />
+			<property name="format"
+				value="^(US-ASCII|ISO-8859-1|UTF-8|UTF-16BE|UTF-16LE|UTF-16)$" />
+			<property name="ignoreCase" value="true" />
+		</module>
+		<module name="IllegalType" />
+		<module name="InnerAssignment" />
+		<module name="MagicNumber">
+			<property name="ignoreFieldDeclaration" value="true" />
+		</module>
+		<module name="MissingSwitchDefault" />
+		<module name="ModifiedControlVariable" />
+		<module name="MultipleStringLiterals">
+			<property name="severity" value="info" />
+		</module>
+		<module name="MultipleVariableDeclarations" />
+		<module name="NestedForDepth">
+			<property name="max" value="2" />
+		</module>
+		<module name="NestedIfDepth">
+			<property name="max" value="3" />
+		</module>
+		<module name="NestedTryDepth" />
+		<module name="NoClone" />
+		<module name="NoFinalizer" />
+		<module name="OverloadMethodsDeclarationOrder" />
+		<module name="PackageDeclaration" />
+		<module name="ParameterAssignment" />
+		<module name="RequireThis">
+			<property name="severity" value="info" />
+		</module>
+		<module name="ReturnCount">
+			<property name="max" value="3" />
+		</module>
+		<module name="SimplifyBooleanExpression" />
+		<module name="SimplifyBooleanReturn" />
+		<module name="StringLiteralEquality" />
+		<module name="SuperClone" />
+		<module name="SuperFinalize" />
+		<module name="UnnecessaryParentheses" />
 
-        <module name="NoFinalizer"/>
+		<!-- Import checks -->
+		<module name="AvoidStarImport" />
+		<module name="AvoidStaticImport" />
+		<module name="CustomImportOrder">
+			<property name="severity" value="info" />
+		</module>
+		<module name="RedundantImport">
+			<property name="severity" value="info" />
+		</module>
+		<module name="UnusedImports">
+			<property name="severity" value="info" />
+		</module>
 
-        <module name="ArrayTypeStyle"/>
+		<!-- Metrics checks -->
+		<module name="BooleanExpressionComplexity" />
+		<module name="ClassDataAbstractionCoupling" />
+		<module name="ClassFanOutComplexity" />
+		<module name="CyclomaticComplexity" />
+		<module name="JavaNCSS">
+			<property name="methodMaximum" value="40" />
+		</module>
+		<module name="NPathComplexity" />
 
-        <module name="ModifierOrder"/>
+		<!-- Miscellaneous checks -->
+		<module name="ArrayTypeStyle">
+			<property name="severity" value="warning" />
+		</module>
+		<module name="AvoidEscapedUnicodeCharacters" />
+		<module name="CommentsIndentation" />
+		<module name="Indentation">
+			<property name="basicOffset" value="8" />
+			<property name="caseIndent" value="8" />
+			<property name="throwsIndent" value="8" />
+			<property name="arrayInitIndent" value="8" />
+			<property name="lineWrappingIndentation" value="2" />
+		</module>
+		<module name="OuterTypeFilename" />
+		<module name="TodoComment" />
+		<module name="TrailingComment" />
+		<module name="UpperEll" />
 
-        <module name="Indentation">
-            <property name="basicOffset" value="4"/>
-            <property name="braceAdjustment" value="0"/>
-            <property name="caseIndent" value="4"/>
-            <property name="throwsIndent" value="4"/>
-            <property name="lineWrappingIndentation" value="8"/>
-            <property name="arrayInitIndent" value="2"/>
+		<!-- Modifier checks -->
+		<module name="ModifierOrder">
+			<property name="severity" value="warning" />
+		</module>
 
-            <property name="severity" value="warning" />
-        </module>
-    </module>
+		<!-- Size checks -->
+		<module name="AnonInnerLength">
+			<property name="max" value="40" />
+		</module>
+		<module name="LineLength">
+			<property name="max" value="140" />
+		</module>
+		<module name="MethodCount">
+			<property name="maxTotal" value="25" />
+		</module>
+		<module name="MethodLength"/>
+		<module name="OuterTypeNumber"/>
+		<module name="ParameterNumber">
+   			<property name="max" value="6"/>
+   		</module>
+	</module>
+	<!-- Miscellaneous checks -->
+	<module name="NewlineAtEndOfFile">
+		<property name="severity" value="info" />
+	</module>
 </module>

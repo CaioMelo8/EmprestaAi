@@ -1,6 +1,7 @@
 package br.ufc.npi.beans;
 
-import org.hibernate.validator.constraints.Email;
+import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,124 +10,124 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import java.io.Serializable;
-import java.util.List;
+
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 public class Usuario implements Serializable {
 
-    private static final long serialVersionUID = 6860378186800633718L;
+	private static final long serialVersionUID = 6860378186800633718L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @Email
-    private String email;
-    private String nome;
-    private String endereco;
-    private String telefone;
-    private String senha;
-    private String role;
+	@Email
+	private String email;
+	private String nome;
+	private String endereco;
+	private String telefone;
+	private String senha;
+	private String role;
 
-    private boolean ativo;
+	private boolean ativo;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "emprestador")
-    private List<Emprestimo> emprestimosEmprestador;
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "emprestador")
+	private List<Emprestimo> emprestimosEmprestador;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "emprestante")
-    private List<Emprestimo> emprestimosEmprestante;
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "emprestante")
+	private List<Emprestimo> emprestimosEmprestante;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Objeto> objetos;
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<Objeto> objetos;
 
-    public Integer getId() {
-        return id;
-    }
+	public final Integer getId() {
+		return this.id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public final void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public final String getEmail() {
+		return this.email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public final void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public final String getNome() {
+		return this.nome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public final void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public String getSenha() {
-        return senha;
-    }
+	public final String getSenha() {
+		return this.senha;
+	}
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+	public final void setSenha(String senha) {
+		this.senha = senha;
+	}
 
-    public List<Objeto> getObjetos() {
-        return objetos;
-    }
+	public final List<Objeto> getObjetos() {
+		return this.objetos;
+	}
 
-    public void setObjetos(List<Objeto> objetos) {
-        this.objetos = objetos;
-    }
+	public final void setObjetos(List<Objeto> objetos) {
+		this.objetos = objetos;
+	}
 
-    public String getEndereco() {
-        return endereco;
-    }
+	public final String getEndereco() {
+		return this.endereco;
+	}
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
+	public final void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
 
-    public String getTelefone() {
-        return telefone;
-    }
+	public final String getTelefone() {
+		return this.telefone;
+	}
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
+	public final void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
-    public String getRole() {
-        return role;
-    }
+	public final String getRole() {
+		return this.role;
+	}
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+	public final void setRole(String role) {
+		this.role = role;
+	}
 
-    public boolean isAtivo() {
-        return ativo;
-    }
+	public final boolean isAtivo() {
+		return this.ativo;
+	}
 
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
+	public final void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
 
-    public List<Emprestimo> getEmprestimosEmprestador() {
-        return emprestimosEmprestador;
-    }
+	public final List<Emprestimo> getEmprestimosEmprestador() {
+		return this.emprestimosEmprestador;
+	}
 
-    public void setEmprestimosEmprestador(List<Emprestimo> emprestimosEmprestador) {
-        this.emprestimosEmprestador = emprestimosEmprestador;
-    }
+	public final void setEmprestimosEmprestador(List<Emprestimo> emprestimosEmprestador) {
+		this.emprestimosEmprestador = emprestimosEmprestador;
+	}
 
-    public List<Emprestimo> getEmprestimosEmprestante() {
-        return emprestimosEmprestante;
-    }
+	public final List<Emprestimo> getEmprestimosEmprestante() {
+		return this.emprestimosEmprestante;
+	}
 
-    public void setEmprestimosEmprestante(List<Emprestimo> emprestimosEmprestante) {
-        this.emprestimosEmprestante = emprestimosEmprestante;
-    }
+	public final void setEmprestimosEmprestante(List<Emprestimo> emprestimosEmprestante) {
+		this.emprestimosEmprestante = emprestimosEmprestante;
+	}
 }

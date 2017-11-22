@@ -1,7 +1,7 @@
 package br.ufc.npi.controller;
 
-import br.ufc.npi.beans.Usuario;
-import br.ufc.npi.service.UsuarioService;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,35 +9,47 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
+import br.ufc.npi.beans.Usuario;
+import br.ufc.npi.service.UsuarioService;
 
 @Controller
 @RequestMapping(path = "/usuario")
 public class UsuarioController {
 
-    @Autowired
-    private UsuarioService usuarioService;
+	private static final String MSG_ERRO_REMOCAO = "erroRemocao";
 
-    @RequestMapping(path = "/cadastrarUsuario", method = RequestMethod.GET)
-    public String cadastrarUsuario() {
-        return "cadastroUsuario";
-    }
+	private static final String MSG_ERRO = "erro";
 
-    @RequestMapping(path = {"", "/", "/home"}, method = RequestMethod.GET)
-    public ModelAndView homeUsuario(@RequestParam(name = "erro", required = false) String erro,
-                                    @RequestParam(name = "erroRemocao", required = false) String erroRemocao,
-                                    HttpSession session) {
+	private static final String CADASTRO_USUARIO = "cadastroUsuario";
 
-        ModelAndView model = new ModelAndView("homeUsuario");
+	private static final String CAMPO_USUARIO = "usuario";
 
-        Usuario usuarioAutenticado = (Usuario) session.getAttribute("usuario");
-        Usuario usuario = usuarioService.buscarUsuario(usuarioAutenticado.getId());
+	@Autowired
+	private UsuarioService usuarioService;
 
-        session.setAttribute("usuario", usuario);
+	public static String getCampoUsuario() {
+		return UsuarioController.CAMPO_USUARIO;
+	}
 
-        model.addObject("erro", erro);
-        model.addObject("erroRemocao", erroRemocao);
+	@RequestMapping(path = "/cadastrarUsuario", method = RequestMethod.GET)
+	public String cadastrarUsuario() {
+		return CADASTRO_USUARIO;
+	}
 
-        return model;
-    }
+	@RequestMapping(path = { "", "/", "/home" }, method = RequestMethod.GET)
+	public ModelAndView homeUsuario(@RequestParam(name = MSG_ERRO, required = false) String erro,
+			@RequestParam(name = MSG_ERRO_REMOCAO, required = false) String erroRemocao, HttpSession session) {
+
+		final ModelAndView model = new ModelAndView("homeUsuario");
+
+		final Usuario usuarioAutenticado = (Usuario) session.getAttribute(CAMPO_USUARIO);
+		final Usuario usuario = this.usuarioService.buscarUsuario(usuarioAutenticado.getId());
+
+		session.setAttribute(CAMPO_USUARIO, usuario);
+
+		model.addObject(MSG_ERRO, erro);
+		model.addObject(MSG_ERRO_REMOCAO, erroRemocao);
+
+		return model;
+	}
 }

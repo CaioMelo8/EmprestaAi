@@ -1,47 +1,57 @@
 package br.ufc.npi;
 
-import br.ufc.quixada.npi.service.SendEmailService;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Properties;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-import java.util.Properties;
+import br.ufc.quixada.npi.service.SendEmailService;
 
 @SpringBootApplication
 public class EmprestaAiApplication {
 
-    @Autowired
-    private JavaMailSenderImpl jmsi;
+	private static final String MAIL_DEBUG = "mail.debug";
+	private static final String MAIL_SMTP_SSL_TRUST = "mail.smtp.ssl.trust";
+	private static final String MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
+	private static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
+	private static final String MAIL_TRANSPORT_PROTOCOL = "mail.transport.protocol";
 
-    public static void main(String[] args) {
-        SpringApplication.run(EmprestaAiApplication.class, args);
-    }
+	private JavaMailSenderImpl jmsi;
 
-    @Bean
-    public JavaMailSenderImpl mailSender() {
-        JavaMailSenderImpl jmsi = new JavaMailSenderImpl();
+	public static void main(String[] args) {
+		SpringApplication.run(EmprestaAiApplication.class, args);
+	}
 
-        Properties prop = new Properties();
-        prop.setProperty("mail.transport.protocol", "smtp");
-        prop.setProperty("mail.smtp.auth", "true");
-        prop.setProperty("mail.smtp.starttls.enable", "true");
-        prop.setProperty("mail.smtp.ssl.trust", "smtp-mail.outlook.com");
-        prop.setProperty("mail.debug", "true");
+	@Bean
+	public JavaMailSenderImpl mailSender() {
+		final int port = 587;
+		final String username = "caiomelo100@hotmail.com";
+		final String smtpMailHost = "smtp-mail.outlook.com";
+		final String encoding = "UTF-8";
+		final String mailProtocol = "smtp";
 
-        jmsi.setDefaultEncoding("UTF-8");
-        jmsi.setHost("smtp-mail.outlook.com");
-        jmsi.setPort(587);
-        jmsi.setUsername("caiomelo100@hotmail.com");
-        jmsi.setPassword(null);
-        jmsi.setJavaMailProperties(prop);
+		final Properties prop = new Properties();
+		prop.setProperty(MAIL_TRANSPORT_PROTOCOL, mailProtocol);
+		prop.setProperty(MAIL_SMTP_AUTH, "true");
+		prop.setProperty(MAIL_SMTP_STARTTLS_ENABLE, "true");
+		prop.setProperty(MAIL_SMTP_SSL_TRUST, smtpMailHost);
+		prop.setProperty(MAIL_DEBUG, "true");
 
-        return jmsi;
-    }
+		this.jmsi = new JavaMailSenderImpl();
+		this.jmsi.setDefaultEncoding(encoding);
+		this.jmsi.setHost(smtpMailHost);
+		this.jmsi.setPort(port);
+		this.jmsi.setUsername(username);
+		this.jmsi.setPassword(null);
+		this.jmsi.setJavaMailProperties(prop);
 
-    @Bean
-    public SendEmailService sendEmailService() {
-        return new SendEmailService(jmsi);
-    }
+		return this.jmsi;
+	}
+
+	@Bean
+	public SendEmailService sendEmailService() {
+		return new SendEmailService(this.jmsi);
+	}
 }
