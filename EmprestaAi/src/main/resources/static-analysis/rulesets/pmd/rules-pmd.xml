@@ -1,19 +1,20 @@
 <?xml version="1.0"?>
 <ruleset name="Custom Ruleset"
-    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
 
-  <description>
-    Ruleset customizado das regras para o PMD para o projeto EmprestaAi.
-  </description>
-  
-  <rule ref="rulesets/java/basic.xml"></rule>
-  <rule ref="rulesets/java/braces.xml" />
-  <rule ref="rulesets/java/coupling.xml" />
-  <rule ref="rulesets/java/empty.xml" />
-  <rule ref="rulesets/java/imports.xml" />
-  <rule ref="rulesets/java/unnecessary.xml">
-  </rule>
-  <rule ref="rulesets/java/unusedcode.xml" />
+    <description>
+        Ruleset customizado das regras para o PMD para o projeto EmprestaAi.
+    </description>
+
+    <rule ref="rulesets/java/basic.xml" />
+    <rule ref="rulesets/java/braces.xml"/>
+    <rule ref="rulesets/java/codesize.xml"/>
+    <rule ref="rulesets/java/empty.xml"/>
+    <rule ref="rulesets/java/imports.xml"/>
+    <rule ref="rulesets/java/unnecessary.xml">
+        <exclude name="UnnecessaryModifier"/>
+    </rule>
+    <rule ref="rulesets/java/unusedcode.xml"/>
 </ruleset>
