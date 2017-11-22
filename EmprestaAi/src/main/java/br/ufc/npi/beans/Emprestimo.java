@@ -1,6 +1,6 @@
 package br.ufc.npi.beans;
 
-import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,78 +9,80 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
-public class Emprestimo{
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
-	@ManyToOne
-	@JoinColumn(name = "emprestador")
-	private Usuario emprestador;
-	
-	@ManyToOne
-	@JoinColumn(name = "emprestante")
-	private Usuario emprestante;
-	
-	@OneToOne
-	private Objeto objeto;
-	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date dataEmprestimo;
-	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date dataDevolucao;
+public class Emprestimo implements Serializable {
 
-	public Integer getId() {
-		return id;
-	}
+    private static final long serialVersionUID = -5856335718294752768L;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	
-	public Usuario getEmprestador() {
-		return emprestador;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	public void setEmprestador(Usuario emprestador) {
-		this.emprestador = emprestador;
-	}
-		
-	public Usuario getEmprestante() {
-		return emprestante;
-	}
-		
-	public void setEmprestante(Usuario emprestante) {
-		this.emprestante = emprestante;
-	}
+    @ManyToOne
+    @JoinColumn(name = "emprestador")
+    private Usuario emprestador;
 
-	public Date getDataEmprestimo() {
-		return dataEmprestimo;
-	}
+    @ManyToOne
+    @JoinColumn(name = "emprestante")
+    private Usuario emprestante;
 
-	public void setDataEmprestimo(Date dataEmprestimo) {
-		this.dataEmprestimo = dataEmprestimo;
-	}
+    @OneToOne
+    private Objeto objeto;
 
-	public Date getDataDevolucao() {
-		return dataDevolucao;
-	}
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dataEmprestimo;
 
-	public void setDataDevolucao(Date dataDevolucao) {
-		this.dataDevolucao = dataDevolucao;
-	}
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dataDevolucao;
 
-	public Objeto getObjeto() {
-		return objeto;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setObjeto(Objeto objeto) {
-		this.objeto = objeto;
-	}	
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Usuario getEmprestador() {
+        return emprestador;
+    }
+
+    public void setEmprestador(Usuario emprestador) {
+        this.emprestador = emprestador;
+    }
+
+    public Usuario getEmprestante() {
+        return emprestante;
+    }
+
+    public void setEmprestante(Usuario emprestante) {
+        this.emprestante = emprestante;
+    }
+
+    public Date getDataEmprestimo() {
+        return dataEmprestimo;
+    }
+
+    public void setDataEmprestimo(Date dataEmprestimo) {
+        this.dataEmprestimo = dataEmprestimo;
+    }
+
+    public Date getDataDevolucao() {
+        return dataDevolucao;
+    }
+
+    public void setDataDevolucao(Date dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
+    }
+
+    public Objeto getObjeto() {
+        return objeto;
+    }
+
+    public void setObjeto(Objeto objeto) {
+        this.objeto = objeto;
+    }
 }
