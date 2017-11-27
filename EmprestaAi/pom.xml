@@ -190,11 +190,31 @@
 				<configuration>
 					<configLocation>${project.rulesets.directory}/checkstyle/rules-checkstyle.xml</configLocation>
 					<suppressionsLocation>${project.rulesets.directory}/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
-					
+
 					<outputFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-result.xml</outputFile>
 					<cacheFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-cachefile</cacheFile>
 					<rulesFiles>${project.build.static-analysis.directory}/checkstyle/checkstyle-rules.xml</rulesFiles>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.9</version>
+				<executions>
+					<execution>
+						<id>jacoco-initialize</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-site</id>
+						<phase>package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -223,6 +243,7 @@
 					</rulesets>
 
 					<targetDirectory>${project.build.static-analysis.directory}/pmd</targetDirectory>
+
 				</configuration>
 			</plugin>
 			<plugin>
@@ -234,7 +255,8 @@
 
 					<xmlOutput>true</xmlOutput>
 					<xmlOutputDirectory>${project.build.static-analysis.directory}/findbugs</xmlOutputDirectory>
-					<findbugsXmlOutputDirectory>${project.build.static-analysis.directory}/findbugs</findbugsXmlOutputDirectory>				</configuration>
+					<findbugsXmlOutputDirectory>${project.build.static-analysis.directory}/findbugs</findbugsXmlOutputDirectory>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -243,11 +265,24 @@
 				<configuration>
 					<configLocation>${project.rulesets.directory}/checkstyle/rules-checkstyle.xml</configLocation>
 					<suppressionsLocation>${project.rulesets.directory}/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
-					
+
 					<outputFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-result.xml</outputFile>
 					<cacheFile>${project.build.static-analysis.directory}/checkstyle/checkstyle-cachefile</cacheFile>
 					<rulesFiles>${project.build.static-analysis.directory}/checkstyle/checkstyle-rules.xml</rulesFiles>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<!-- select non-aggregate reports -->
+							<report>report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
 			</plugin>
 		</plugins>
 	</reporting>
