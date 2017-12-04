@@ -86,4 +86,61 @@ public class Emprestimo implements Serializable {
 	public final void setObjeto(Objeto objeto) {
 		this.objeto = objeto;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dataDevolucao == null) ? 0 : dataDevolucao.hashCode());
+		result = prime * result + ((dataEmprestimo == null) ? 0 : dataEmprestimo.hashCode());
+		result = prime * result + ((emprestador == null) ? 0 : emprestador.hashCode());
+		result = prime * result + ((emprestante == null) ? 0 : emprestante.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((objeto == null) ? 0 : objeto.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Emprestimo other = (Emprestimo) obj;
+		if (dataDevolucao == null) {
+			if (other.dataDevolucao != null)
+				return false;
+		} else if (!dataDevolucao.equals(other.dataDevolucao))
+			return false;
+		if (dataEmprestimo == null) {
+			if (other.dataEmprestimo != null)
+				return false;
+		} else if (!dataEmprestimo.equals(other.dataEmprestimo))
+			return false;
+		if (emprestador == null) {
+			if (other.emprestador != null)
+				return false;
+		} else if (!emprestador.equals(other.emprestador))
+			return false;
+		if (emprestante == null) {
+			if (other.emprestante != null)
+				return false;
+		} else if (!emprestante.equals(other.emprestante))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (objeto == null) {
+			if (other.objeto != null)
+				return false;
+		} else if (!objeto.equals(other.objeto))
+			return false;
+		return true;
+	}
+	
+	
 }
