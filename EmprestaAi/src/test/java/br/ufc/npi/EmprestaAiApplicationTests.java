@@ -19,24 +19,24 @@ import br.ufc.npi.service.UsuarioService;
 @DataJpaTest
 @SpringBootTest(classes = EmprestaAiApplication.class)
 public class EmprestaAiApplicationTests {
-	
+
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
-	
-	@MockBean 
+
+	@MockBean
 	private UsuarioService usuarioService;
-	
+
 	@Test
 	public void testeRepositorioSalvarUsuario() {
 		Usuario usuario = new Usuario();
 		usuario.setId(1);
-		
+
 		Usuario usuarioSalvo = usuarioRepositorio.save(usuario);
-		
+
 		Usuario usuarioBuscado = usuarioRepositorio.getOne(usuario.getId());
-		
+
 		assertNotNull(usuarioSalvo);
 		assertEquals(usuario, usuarioBuscado);
 	}
-	
+
 }

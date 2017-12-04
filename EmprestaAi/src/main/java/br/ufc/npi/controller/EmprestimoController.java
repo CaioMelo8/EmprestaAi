@@ -99,22 +99,16 @@ public class EmprestimoController {
 		final Usuario destinatario = emprestimo.getEmprestante();
 		final Objeto objeto = emprestimo.getObjeto();
 
-		final String corpoEmail =  "Olá, " + destinatario.getNome() + "\n\n"
-				+ "Um objeto foi emprestado para você!\n\n"
-				+ "Detalhes\n\n"
-				+ "Nome do usuário: " + remetente.getNome() + "\n"
-				+ "Email: " + remetente.getEmail() + "\n"
-				+ "Telefone: " + remetente.getTelefone() + "\n\n"
-				+ "Objeto\n" + objeto.getNome() + "\n"
-				+ "Descrição: " + objeto.getDescricao() + "\n\n"
-				+ "Data de empréstimo: " + emprestimo.getDataEmprestimo() + "\n"
-				+ "Data de devolução: " + emprestimo.getDataDevolucao() + "\n\n"
+		final String corpoEmail = "Olá, " + destinatario.getNome() + "\n\n" + "Um objeto foi emprestado para você!\n\n"
+				+ "Detalhes\n\n" + "Nome do usuário: " + remetente.getNome() + "\n" + "Email: " + remetente.getEmail()
+				+ "\n" + "Telefone: " + remetente.getTelefone() + "\n\n" + "Objeto\n" + objeto.getNome() + "\n"
+				+ "Descrição: " + objeto.getDescricao() + "\n\n" + "Data de empréstimo: "
+				+ emprestimo.getDataEmprestimo() + "\n" + "Data de devolução: " + emprestimo.getDataDevolucao() + "\n\n"
 				+ "Email enviado automatiamente. Não responda a este email.\n\n" + "EmprestaAi";
 
-		final EmailBuilder emailBuilder = 
-				new EmailBuilder(remetente.getNome(), remetente.getEmail(),
-						"EmprestaAi - Novo empréstimo cadastrado", destinatario.getEmail(), corpoEmail);
-		
+		final EmailBuilder emailBuilder = new EmailBuilder(remetente.getNome(), remetente.getEmail(),
+				"EmprestaAi - Novo empréstimo cadastrado", destinatario.getEmail(), corpoEmail);
+
 		final Email email = new Email(emailBuilder);
 
 		this.emailService.sendEmail(email);
@@ -126,19 +120,14 @@ public class EmprestimoController {
 		final Objeto objeto = emprestimo.getObjeto();
 
 		final String corpoEmail = "Olá, " + destinatario.getNome() + "\n\n"
-				+ "O objeto que lhe foi emprestado foi devolvido com sucesso!\n\n"
-				+ "Detalhes\n\n"
-				+ "Nome do usuário: " + remetente.getNome() + "\n"
-				+ "Objeto\n"
-				+ objeto.getNome() + "\n"
+				+ "O objeto que lhe foi emprestado foi devolvido com sucesso!\n\n" + "Detalhes\n\n"
+				+ "Nome do usuário: " + remetente.getNome() + "\n" + "Objeto\n" + objeto.getNome() + "\n"
 				+ "Descrição: " + objeto.getDescricao() + "\n\n"
-				+ "Email enviado automaticamente. Não responda a este email.\n\n"
-				+ "Atenciosamente,\nEmprestaAi";
+				+ "Email enviado automaticamente. Não responda a este email.\n\n" + "Atenciosamente,\nEmprestaAi";
 
-		final EmailBuilder emailBuilder = 
-				new EmailBuilder(remetente.getNome(), remetente.getEmail(), 
-						"EmprestaAi - Devolução confirmada com sucesso", destinatario.getEmail(), corpoEmail);
-		
+		final EmailBuilder emailBuilder = new EmailBuilder(remetente.getNome(), remetente.getEmail(),
+				"EmprestaAi - Devolução confirmada com sucesso", destinatario.getEmail(), corpoEmail);
+
 		final Email email = new Email(emailBuilder);
 
 		this.emailService.sendEmail(email);

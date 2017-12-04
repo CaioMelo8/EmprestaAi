@@ -91,56 +91,70 @@ public class Emprestimo implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((dataDevolucao == null) ? 0 : dataDevolucao.hashCode());
-		result = prime * result + ((dataEmprestimo == null) ? 0 : dataEmprestimo.hashCode());
-		result = prime * result + ((emprestador == null) ? 0 : emprestador.hashCode());
-		result = prime * result + ((emprestante == null) ? 0 : emprestante.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((objeto == null) ? 0 : objeto.hashCode());
+		final Object[] fields = { dataDevolucao, dataEmprestimo, emprestador, emprestante, id, objeto };
+
+		for (final Object field : fields) {
+			result = prime * result + ((field == null) ? 0 : field.hashCode());
+		}
+
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
-		Emprestimo other = (Emprestimo) obj;
+		}
+		final Emprestimo other = (Emprestimo) obj;
 		if (dataDevolucao == null) {
-			if (other.dataDevolucao != null)
+			if (other.dataDevolucao != null) {
 				return false;
-		} else if (!dataDevolucao.equals(other.dataDevolucao))
+			}
+		} else if (!dataDevolucao.equals(other.dataDevolucao)) {
 			return false;
+		}
 		if (dataEmprestimo == null) {
-			if (other.dataEmprestimo != null)
+			if (other.dataEmprestimo != null) {
 				return false;
-		} else if (!dataEmprestimo.equals(other.dataEmprestimo))
+			}
+		} else if (!dataEmprestimo.equals(other.dataEmprestimo)) {
 			return false;
+		}
 		if (emprestador == null) {
-			if (other.emprestador != null)
+			if (other.emprestador != null) {
 				return false;
-		} else if (!emprestador.equals(other.emprestador))
+			}
+		} else if (!emprestador.equals(other.emprestador)) {
 			return false;
+		}
 		if (emprestante == null) {
-			if (other.emprestante != null)
+			if (other.emprestante != null) {
 				return false;
-		} else if (!emprestante.equals(other.emprestante))
+			}
+		} else if (!emprestante.equals(other.emprestante)) {
 			return false;
+		}
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
 		if (objeto == null) {
-			if (other.objeto != null)
+			if (other.objeto != null) {
 				return false;
-		} else if (!objeto.equals(other.objeto))
+			}
+		} else if (!objeto.equals(other.objeto)) {
 			return false;
+		}
 		return true;
 	}
-	
-	
+
 }

@@ -80,38 +80,36 @@ public class Objeto implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
-		Objeto other = (Objeto) obj;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
+		}
+
+		final Objeto other = (Objeto) obj;
+
+		if (id == null && other.id != null) {
 			return false;
-		if (emprestimo == null) {
-			if (other.emprestimo != null)
-				return false;
-		} else if (!emprestimo.equals(other.emprestimo))
+		} else if (!id.equals(other.id)) {
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		}
+
+		if (nome == null && other.nome != null) {
 			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
+		} else if (!nome.equals(other.nome)) {
 			return false;
-		if (usuarioDono == null) {
-			if (other.usuarioDono != null)
-				return false;
-		} else if (!usuarioDono.equals(other.usuarioDono))
+		}
+
+		if (usuarioDono == null && other.usuarioDono != null) {
 			return false;
+		} else if (!usuarioDono.equals(other.usuarioDono)) {
+			return false;
+		}
+
 		return true;
 	}
 }

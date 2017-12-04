@@ -231,8 +231,8 @@
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
-					<!-- Definição do Goal report, que cria o report do JaCoCo durante a 
-						fase de package. -->
+					<!-- Definição do Goal report, que gera os relatórios de cobertura do JaCoCo -->
+					<!-- Aqui é definido que o goal será executado durante a fase de empacotamento (package) -->
 					<execution>
 						<id>jacoco-site</id>
 						<phase>package</phase>
