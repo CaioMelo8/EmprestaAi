@@ -5,7 +5,8 @@ jdk:
 # obviously this only works for maven builds right now...
 before_install:
   - chmod +x mvnw
+  - mvn clean
 install:
-- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -e
 script:
-- mvn test
+  - mvn test
