@@ -162,9 +162,11 @@ public class Usuario implements Serializable {
 			final Object field = fields[i];
 			final Object otherField = otherFields[i];
 
-			if (field == null && otherField != null) {
+			if (field == otherField) {
+				return true;
+			} else if (field == null || otherField == null) {
 				return false;
-			} else if (!email.equals(other.email)) {
+			} else if (!field.equals(otherField)) {
 				return false;
 			}
 		}
