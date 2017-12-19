@@ -5,8 +5,11 @@ jdk:
 # obviously this only works for maven builds right now...
 before_install:
   - chmod +x mvnw
+  - mvn clean
 install:
-  - mvn clean package install -Dmaven.javadoc.skip=true -B
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B
+script:
+  - mvn test
 cache:
   directories:
     - $HOME/.m2
