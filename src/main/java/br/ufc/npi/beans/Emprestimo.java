@@ -94,7 +94,11 @@ public class Emprestimo implements Serializable {
 		final Object[] fields = { dataDevolucao, dataEmprestimo, emprestador, emprestante, id, objeto };
 
 		for (final Object field : fields) {
-			result = prime * result + ((field == null) ? 0 : field.hashCode());
+			result = prime * result;
+
+			if (field != null) {
+				result += field.hashCode();
+			}
 		}
 
 		return result;

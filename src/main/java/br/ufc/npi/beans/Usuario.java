@@ -135,13 +135,23 @@ public class Usuario implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (ativo ? 1231 : 1237);
+		result = prime * result;
+
+		if (ativo) {
+			result += 1231;
+		} else {
+			result += 1237;
+		}
 
 		final Object[] fields = { email, emprestimosEmprestador, emprestimosEmprestante, endereco, id, nome, objetos,
 				role, senha, telefone };
 
 		for (final Object field : fields) {
-			result = prime * result + ((field == null) ? 0 : field.hashCode());
+			result = prime * result;
+
+			if (field != null) {
+				result += field.hashCode();
+			}
 		}
 
 		return result;
