@@ -88,7 +88,7 @@ public class Emprestimo implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		final Object[] fields = { dataDevolucao, dataEmprestimo, emprestador, emprestante, id, objeto };
@@ -105,7 +105,9 @@ public class Emprestimo implements Serializable {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	@SuppressWarnings({ "PMD.StdCyclomaticComplexity", "PMD.CyclomaticComplexity", "PMD.ModifiedCyclomaticComplexity",
+			"PMD.NPathComplexity" })
+	public final boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -160,5 +162,4 @@ public class Emprestimo implements Serializable {
 		}
 		return true;
 	}
-
 }

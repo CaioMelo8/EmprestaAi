@@ -130,13 +130,13 @@
 					</execution>
 				</executions>
 				<configuration>
-					<alias>caio-melo</alias>
+					<alias>caiomelo</alias>
 					<keystore>${project.basedir}/target/keystore/.keystore</keystore>
 					<storepass>123456</storepass>
 					<keypass>123456</keypass>
 					<dname>
 						cn=www.caio.emprestaai.com,
-						ou=Caio Melo,
+						ou=CaioMelo,
 						L=Quixada,
 						ST=Ceara,
 						o=EmprestaAiOrg,
@@ -168,7 +168,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<alias>caio-melo</alias>
+					<alias>caiomelo</alias>
 					<keystore>${project.basedir}\target\keystore\.keystore</keystore>
 					<storepass>123456</storepass>
 					<keypass>123456</keypass>

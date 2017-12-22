@@ -6,5 +6,5 @@
 
 <suppressions>
 	<suppress checks="DesignForExtension"
-		files="br[\\/]ufc[\\/]npi[\\/](controller|repositorio|service|config)[\\/]" />
+		files="br[\\/]ufc[\\/]npi[\\/](app|controller|repositorio|service|config)[\\/]" />
 </suppressions>

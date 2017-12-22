@@ -67,7 +67,7 @@ public class Objeto implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		final int prime = 31;
 		int result = 1;
 
@@ -85,7 +85,9 @@ public class Objeto implements Serializable {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	@SuppressWarnings({ "PMD.StdCyclomaticComplexity", "PMD.CyclomaticComplexity", "PMD.ModifiedCyclomaticComplexity",
+			"PMD.NPathComplexity" })
+	public final boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -95,27 +97,42 @@ public class Objeto implements Serializable {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-
 		final Objeto other = (Objeto) obj;
-
-		if (id == null && other.id != null) {
+		if (descricao == null) {
+			if (other.descricao != null) {
+				return false;
+			}
+		} else if (!descricao.equals(other.descricao)) {
 			return false;
+		}
+		if (emprestimo == null) {
+			if (other.emprestimo != null) {
+				return false;
+			}
+		} else if (!emprestimo.equals(other.emprestimo)) {
+			return false;
+		}
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
 		} else if (!id.equals(other.id)) {
 			return false;
 		}
-
-		if (nome == null && other.nome != null) {
-			return false;
+		if (nome == null) {
+			if (other.nome != null) {
+				return false;
+			}
 		} else if (!nome.equals(other.nome)) {
 			return false;
 		}
-
-		if (usuarioDono == null && other.usuarioDono != null) {
-			return false;
+		if (usuarioDono == null) {
+			if (other.usuarioDono != null) {
+				return false;
+			}
 		} else if (!usuarioDono.equals(other.usuarioDono)) {
 			return false;
 		}
-
 		return true;
 	}
 }

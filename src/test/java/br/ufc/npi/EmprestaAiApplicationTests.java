@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import br.ufc.npi.app.EmprestaAiApplication;
 import br.ufc.npi.beans.Usuario;
 import br.ufc.npi.repositorio.UsuarioRepositorio;
 import br.ufc.npi.service.UsuarioService;

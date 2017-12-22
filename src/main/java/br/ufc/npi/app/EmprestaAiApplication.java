@@ -1,4 +1,4 @@
-package br.ufc.npi;
+package br.ufc.npi.app;
 
 import java.util.Properties;
 

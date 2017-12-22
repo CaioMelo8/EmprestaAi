@@ -132,19 +132,22 @@ public class Usuario implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result;
 
-		if (ativo) {
-			result += 1231;
-		} else {
-			result += 1237;
-		}
-
 		final Object[] fields = { email, emprestimosEmprestador, emprestimosEmprestante, endereco, id, nome, objetos,
 				role, senha, telefone };
+
+		final int ativoTrueValue = 1231;
+		final int ativoFalseValue = 1237;
+
+		if (ativo) {
+			result += ativoTrueValue;
+		} else {
+			result += ativoFalseValue;
+		}
 
 		for (final Object field : fields) {
 			result = prime * result;
@@ -158,29 +161,93 @@ public class Usuario implements Serializable {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj || obj == null || getClass() != obj.getClass()) {
+	@SuppressWarnings({ "PMD.StdCyclomaticComplexity", "PMD.CyclomaticComplexity", "PMD.ModifiedCyclomaticComplexity",
+			"PMD.NPathComplexity" })
+	public final boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
-
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
 		final Usuario other = (Usuario) obj;
-
-		final Object[] fields = { email, id };
-		final Object[] otherFields = { other.email, other.id };
-
-		for (int i = 0; i < fields.length; i++) {
-			final Object field = fields[i];
-			final Object otherField = otherFields[i];
-
-			if (field == otherField) {
-				return true;
-			} else if (field == null || otherField == null) {
-				return false;
-			} else if (!field.equals(otherField)) {
+		if (ativo != other.ativo) {
+			return false;
+		}
+		if (email == null) {
+			if (other.email != null) {
 				return false;
 			}
+		} else if (!email.equals(other.email)) {
+			return false;
 		}
-
+		if (emprestimosEmprestador == null) {
+			if (other.emprestimosEmprestador != null) {
+				return false;
+			}
+		} else if (!emprestimosEmprestador.equals(other.emprestimosEmprestador)) {
+			return false;
+		}
+		if (emprestimosEmprestante == null) {
+			if (other.emprestimosEmprestante != null) {
+				return false;
+			}
+		} else if (!emprestimosEmprestante.equals(other.emprestimosEmprestante)) {
+			return false;
+		}
+		if (endereco == null) {
+			if (other.endereco != null) {
+				return false;
+			}
+		} else if (!endereco.equals(other.endereco)) {
+			return false;
+		}
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!id.equals(other.id)) {
+			return false;
+		}
+		if (nome == null) {
+			if (other.nome != null) {
+				return false;
+			}
+		} else if (!nome.equals(other.nome)) {
+			return false;
+		}
+		if (objetos == null) {
+			if (other.objetos != null) {
+				return false;
+			}
+		} else if (!objetos.equals(other.objetos)) {
+			return false;
+		}
+		if (role == null) {
+			if (other.role != null) {
+				return false;
+			}
+		} else if (!role.equals(other.role)) {
+			return false;
+		}
+		if (senha == null) {
+			if (other.senha != null) {
+				return false;
+			}
+		} else if (!senha.equals(other.senha)) {
+			return false;
+		}
+		if (telefone == null) {
+			if (other.telefone != null) {
+				return false;
+			}
+		} else if (!telefone.equals(other.telefone)) {
+			return false;
+		}
 		return true;
+
 	}
 }

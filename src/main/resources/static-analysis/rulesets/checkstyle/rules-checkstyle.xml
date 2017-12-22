@@ -165,7 +165,7 @@
 			<property name="caseIndent" value="8" />
 			<property name="throwsIndent" value="8" />
 			<property name="arrayInitIndent" value="8" />
-			<property name="lineWrappingIndentation" value="2" />
+			<property name="lineWrappingIndentation" value="16" />
 		</module>
 		<module name="OuterTypeFilename" />
 		<module name="TodoComment" />
