@@ -1,1 +1,1 @@
-# EmprestaAi [![Build Status](https://travis-ci.org/CaioMelo8/empresta-ai.svg?branch=master)](https://travis-ci.org/CaioMelo8/empresta-ai)
+# EmprestaAi [![Build Status](https://travis-ci.org/CaioMelo8/empresta-ai.svg?branch=master)](https://travis-ci.org/CaioMelo8/empresta-ai) [![Quality Gate status](https://sonarcloud.io/api/badges/gate?key=br.ufc.npi%3Aempresta-ai)](https://sonarcloud.io/dashboard/index/br.ufc.npi%3Aempresta-ai)
