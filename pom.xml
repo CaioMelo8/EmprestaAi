@@ -145,7 +145,7 @@
 					<sigalg>SHA1withDSA</sigalg>
 					<keyalg>DSA</keyalg>
 					<keysize>1024</keysize>
-					<verbose>true</verbose>
+					<storetype>pkcs12</storetype>
 				</configuration>
 			</plugin>
 			<plugin>
