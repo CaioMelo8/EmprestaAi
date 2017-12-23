@@ -1,14 +1,20 @@
 language: java
+
 jdk: oraclejdk8
+
+install: true
+
+addons:
+  sonarcloud:
+    organization: caiomelo8-github
+
 # would just use default install/script but the ./mvnw script errors on travis
 # obviously this only works for maven builds right now...
 before_install:
   - chmod +x mvnw
-  - mvn clean
-install:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B
 script:
-  - mvn test
+  - mvn clean jacoco:prepare-agent package sonar:sonar
 cache:
   directories:
-    - $HOME/.m2
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
