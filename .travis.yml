@@ -12,10 +12,3 @@ cache:
   directories:
   - "$HOME/.m2/repository"
   - "$HOME/.sonar/cache"
-deploy:
-  provider: heroku
-  api_key:
-    secure: "KLLz43EegE/0t0QUyaRmySTu74g8KVzjDqy68XRDtOwNbWWg8D+bx0OnGu0Lyt3uhRwyMekat9qpVFLpEd0BG1DtoVFZVdxJ+csib2oZkV/e1pNpN6UJclvBisKzFSiD1c8XiT/PRzY6U1PRLoCi2RKdz+8drDqBGesWx6FyDFYRzYTWdSnU0fDgpT+VSom1vnTGivdh8rDZB+/SVywn5wqaau1WiL5CnK9TFnR/TVW9fCsslA4b59bSzYuLXBMaHiT2Qs4bRu7o/M4TSthbBW9yv5eZwTqrBYB4X3EUAq3kEGC3JDBNjrZYf7Yi897AeOh+R491c/Nq6SMN6n+ZWnMJbQKSXITQYjfeNO+BLL0Zftw0muiJhB8HvJlekOXVBLzEPlMMi+BVKaWg5+ccbJXkF81PTvCzRHJKd1N4BTgGgWZMbKRDuyzkfOi0UGX8UB7vG9WN7gki0OVmJqpqZFT9u2rzbQYzL4DlTqveAkS5ELuhwOB2zRLZNiCM7Dg4xdwrH+woc9aOxKrcR8p2YEXR3jTtBpdiQhFgURos+Kzg8QN9O86ct1WU1wafRysYd4bhULyffJfLYKKGzZnMVkBITxhWRnIRyO6PfPHrPVfITi0mA5n/hKY8ud1uWn9tWFCv71/ot6nZ/WD65Oyy5f7Pq2CXwYOQcfCAxHZbas0="
-  app: empresta-ai
-  on:
-    repo: CaioMelo8/empresta-ai
