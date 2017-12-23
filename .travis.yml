@@ -1,20 +1,18 @@
 language: java
-
 jdk: oraclejdk8
-
 install: true
-
 addons:
   sonarcloud:
     organization: caiomelo8-github
-
-# would just use default install/script but the ./mvnw script errors on travis
-# obviously this only works for maven builds right now...
 before_install:
-  - chmod +x mvnw
+- chmod +x mvnw
 script:
-  - mvn clean jacoco:prepare-agent package sonar:sonar
+- mvn clean jacoco:prepare-agent package sonar:sonar
 cache:
   directories:
-    - '$HOME/.m2/repository'
-    - '$HOME/.sonar/cache'
+  - "$HOME/.m2/repository"
+  - "$HOME/.sonar/cache"
+deploy:
+  provider: heroku
+  api_key:
+    secure: f1rrBdrTBtGOjuULFh1hM8M2vB66EGoW/J3TYKehxkGSV/TzlUxOVol6rPexwUMuq2g9KrBy+XLOsQBkay7mKrN2QrimoAGdSHRLASQwFndPxx4lM51KJmB1aslkmrB4L3WUhdjfdIYBzmr5X9OYSqREkN89EZxfoNDMPl02uZgNfRwevo/9hvgIgiXRfrLiAtA8ze3D56+6VDnRoLsEjTZTcHab9L3AMneN385cQOYmA8RVD6DW0k9NxNkjqLU0m1N82hTqe3TSyUbhO1Ltr+DTJaPHuYLCGxI86FuVDBDz18WOwmF06inM1rfxGmPHXIYHxCUyH/iqYssa39btd02l3Ee5gCUtHckzqPWYXB6IPP/88mBWp3Q3h+kZ7QvS+MKJXAUveHWIxb7WAs+XQeJAWN70v2CO6xKQ0ydscweGf80LS0b7/+DKxX/05O1cqp6zEuuGaM3jqURkjmK/jXhe8U/eLwSmBD4vH2bq7KCeKtZK6kdat5aSo0KEMzoKz/IEwa0nzmeCNgkrjgZL/Mzl8xGc33FUIlaveCevCbAhKb5kdwkL2jYgK0Ts8bIFHVXeMK1ucTob954zU/BozXFdou9Udm0Vz3miBPBJavmiqR5juxd9EAQw54HyCGFztipFHvHOUWzcFwEzvovNsAEe+oc3VeU1xJFhNCQRQmU=
