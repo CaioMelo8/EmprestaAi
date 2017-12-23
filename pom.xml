@@ -169,7 +169,7 @@
 				</executions>
 				<configuration>
 					<alias>caiomelo</alias>
-					<keystore>${project.basedir}\target\keystore\.keystore</keystore>
+					<keystore>${project.basedir}/target/keystore/.keystore</keystore>
 					<storepass>123456</storepass>
 					<keypass>123456</keypass>
 				</configuration>
